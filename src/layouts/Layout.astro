@@ -1,0 +1,31 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "ICON Multimedia — Software de cartelería digital",
+  description = "DENEVA, DENEVA.transit, MIRANDDA y KOMMANDA: software de digital signage, información al pasajero, smart mirror y kioscos de autoservicio.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#07070a" />
+    <link rel="icon" type="image/png" href="/images/icon.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/transit.jpg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
