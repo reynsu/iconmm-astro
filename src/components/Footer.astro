@@ -1,6 +1,7 @@
 ---
 import { withBase } from "@/lib/url";
-import { picAttrs } from "@/lib/images";
+import { Image } from "astro:assets";
+import { asset } from "@/lib/images";
 import { Logo } from "@/components/Logo";
 import FooterCta from "@/components/FooterCta";
 import SocialDock from "@/components/SocialDock";
@@ -91,7 +92,7 @@ const { cta = true } = Astro.props;
         {
           members.map((m) => (
             <li>
-              <img {...picAttrs(m.src)} alt={m.name} loading="lazy" class="h-7 w-auto opacity-50 brightness-0 invert transition hover:opacity-90" />
+              <Image src={asset(m.src)} alt={m.name} format="webp" loading="lazy" class="h-7 w-auto opacity-50 brightness-0 invert transition hover:opacity-90" />
             </li>
           ))
         }
@@ -104,7 +105,7 @@ const { cta = true } = Astro.props;
         {
           icex.logos.map((logo) => (
             <li class="rounded-lg bg-white px-3 py-2">
-              <img {...picAttrs(logo.src)} alt={logo.name} loading="lazy" class="h-6 w-auto" />
+              <Image src={asset(logo.src)} alt={logo.name} format="webp" loading="lazy" class="h-6 w-auto" />
             </li>
           ))
         }

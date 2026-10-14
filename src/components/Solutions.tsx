@@ -3,9 +3,9 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Lens } from "@/components/ui/lens";
 import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import { solutions } from "@/data/site";
-import { pic } from "@/lib/images";
+import type { ImgAttrs } from "@/lib/img-types";
 
-export default function Solutions() {
+export default function Solutions({ images }: { images: Record<string, ImgAttrs> }) {
   return (
     <div className="mx-auto max-w-7xl px-4 md:px-8">
       <header className="max-w-3xl">
@@ -53,7 +53,7 @@ export default function Solutions() {
               <CardItem translateZ={90} className="mt-6 w-full">
                 <Lens zoomFactor={1.7} lensSize={190}>
                   <img
-                    {...pic(s.image, "(min-width: 768px) 44vw, 92vw")}
+                    {...images[s.image]}
                     alt={s.imageAlt}
                     loading="lazy"
                     className="aspect-[16/10] w-full rounded-2xl object-cover"

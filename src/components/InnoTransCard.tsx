@@ -2,9 +2,9 @@ import { IconArrowUpRight, IconCalendarEvent, IconMapPin } from "@tabler/icons-r
 import { WobbleCard } from "@/components/ui/wobble-card";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { event } from "@/data/site";
-import { pic } from "@/lib/images";
+import type { ImgAttrs } from "@/lib/img-types";
 
-export default function InnoTransCard() {
+export default function InnoTransCard({ image }: { image: ImgAttrs }) {
   return (
     <WobbleCard containerClassName="min-h-[280px] text-paper" className="p-0">
       <div className="grid items-center gap-8 p-7 md:grid-cols-[1.2fr_1fr] md:p-10 lg:gap-14">
@@ -38,7 +38,7 @@ export default function InnoTransCard() {
         <div className="relative">
           <div aria-hidden="true" className="absolute -inset-6 -z-10 rounded-full bg-signal/30 blur-3xl" />
           <img
-            {...pic(event.image, "(min-width: 768px) 40vw, 90vw")}
+            {...image}
             alt="Cartel de InnoTrans 2026, the future of mobility"
             loading="lazy"
             className="w-full rotate-2 rounded-2xl object-cover shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] ring-1 ring-paper/10 transition duration-500 hover:rotate-0"

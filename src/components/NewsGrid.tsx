@@ -1,9 +1,9 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { FocusCards } from "@/components/ui/focus-cards";
 import { newsAll } from "@/data/pages";
-import { pic } from "@/lib/images";
+import type { ImgAttrs } from "@/lib/img-types";
 
-export default function NewsGrid() {
+export default function NewsGrid({ images }: { images: Record<string, ImgAttrs> }) {
   const withImage = newsAll.filter((n) => n.image);
   const [featured, ...rest] = withImage;
   const older = newsAll.filter((n) => !n.image);
@@ -19,7 +19,7 @@ export default function NewsGrid() {
       >
         <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[26rem]">
           <img
-            {...pic(featured.image, "(min-width: 768px) 56vw, 100vw")}
+            {...images[featured.image]}
             alt=""
             fetchPriority="high"
             className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
@@ -42,7 +42,7 @@ export default function NewsGrid() {
       {/* Rejilla */}
       <FocusCards
         className="lg:grid-cols-3"
-        cards={rest.map((n) => ({ title: n.title, src: n.image!, eyebrow: n.date, href: n.link, cta: "Leer más" }))}
+        cards={rest.map((n) => ({ title: n.title, src: n.image!, image: images[n.image!], eyebrow: n.date, href: n.link, cta: "Leer más" }))}
       />
 
       {/* Anteriores */}

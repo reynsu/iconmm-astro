@@ -9,8 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "images": "node scripts/optimize-images.mjs"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.1",

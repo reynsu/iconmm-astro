@@ -1,5 +1,6 @@
 ---
-import { picAttrs } from "@/lib/images";
+import { Image } from "astro:assets";
+import { asset } from "@/lib/images";
 import Layout from "@/layouts/Layout.astro";
 import SiteHeader from "@/components/SiteHeader";
 import PageHero from "@/components/PageHero.astro";
@@ -48,7 +49,7 @@ import { csr } from "@/data/pages";
                   <p class="mt-1 text-sm text-muted">{c.detail}</p>
                 </div>
                 <span class="shrink-0 rounded-xl bg-white px-3 py-2 ring-1 ring-line">
-                  <img {...picAttrs(c.src)} alt="" loading="lazy" class="h-10 w-auto" />
+                  <Image src={asset(c.src)} alt="" format="webp" loading="lazy" class="h-10 w-auto" />
                 </span>
               </li>
             ))

@@ -2,13 +2,15 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { pic } from "@/lib/images";
+import type { ImgAttrs } from "@/lib/img-types";
 
 // Adaptación: cada tarjeta es un enlace con antetítulo (fecha) y llamada a la acción,
 // y la rejilla se controla con className.
 export type FocusCard = {
   title: string;
   src: string;
+  /** Variantes optimizadas (astro:assets); si falta, se usa `src` tal cual */
+  image?: ImgAttrs;
   eyebrow?: string;
   href?: string;
   cta?: string;
@@ -38,7 +40,7 @@ export const Card = React.memo(
       )}
     >
       <img
-        {...pic(card.src, "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw")}
+        {...(card.image ?? { src: card.src })}
         alt=""
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"

@@ -2,6 +2,7 @@
 import { withBase } from "@/lib/url";
 import "@/styles/global.css";
 import Scrollbar from "@/components/Scrollbar";
+import { optimized } from "@/lib/images";
 // URL con hash de la fuente del titular, para precargarla: el titular es el LCP y así no espera al CSS.
 import interTight from "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2?url";
 
@@ -16,7 +17,7 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(withBase("/images/transit-1200.webp"), Astro.site);
+const ogImage = new URL((await optimized("/images/transit.jpg", { widths: [1200] })).src, Astro.site);
 ---
 
 <!doctype html>
