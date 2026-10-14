@@ -1,0 +1,33 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/PageHero.astro";
+import NewsGrid from "@/components/NewsGrid";
+import Footer from "@/components/Footer.astro";
+---
+
+<Layout
+  title="Noticias — ICON Multimedia"
+  description="Novedades de ICON Multimedia y DENEVA: ferias, alianzas, proyectos y premios en cartelería digital e información al viajero."
+>
+  <SiteHeader client:load />
+
+  <main>
+    <PageHero
+      index="N"
+      eyebrow="Sala de prensa"
+      lead="Ferias, alianzas y proyectos: lo último de ICON Multimedia y de la plataforma DENEVA."
+      class="pb-10 md:pb-14"
+    >
+      Nuestras <em class="font-serif font-normal tracking-normal text-ink/70 italic">novedades</em>
+    </PageHero>
+
+    <section class="pb-24 md:pb-32">
+      <div class="mx-auto max-w-7xl px-4 md:px-8">
+        <NewsGrid client:visible />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

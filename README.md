@@ -15,10 +15,23 @@ npm run dev      # http://localhost:4321
 npm run build    # genera dist/
 ```
 
+## Páginas
+
+- `/` — home.
+- `/partners` — programa de partners (beneficios, recorrido en cuatro pasos y formulario).
+- `/empleo` — ventajas (lista editorial numerada) y ofertas abiertas (la inscripción enlaza a iconmm.com).
+- `/rsc` — responsabilidad social corporativa: tres compromisos con cifras y certificaciones.
+- `/noticias` — sala de prensa: destacada, rejilla y anteriores.
+- `/contacto` — vías de contacto, formulario y oficinas.
+
+Todas cuelgan de la barra superior. Los formularios envían por POST (JSON) a `PUBLIC_CONTACT_ENDPOINT` si está
+definida en `.env`; sin ella muestran la confirmación en local.
+
 ## Estructura
 
 - `src/pages/index.astro` — la página, sección a sección.
-- `src/data/site.ts` — todo el contenido (textos, soluciones, clientes, oficinas, noticias).
+- `src/data/site.ts` — contenido de la home (textos, soluciones, clientes, oficinas, noticias).
+- `src/data/pages.ts` — contenido de las páginas interiores (partners, empleo, RSC, noticias, contacto).
 - `src/components/` — secciones interactivas (islas React) y piezas Astro.
 - `src/components/PaperDancer.tsx` — la bailarina en 3D (three.js).
 - `src/components/Presence.tsx` — sección pegajosa: el globo (`github-globe`) se disuelve con el scroll y aparece el mapa (`world-map`).
@@ -46,7 +59,8 @@ Para regenerar los datos a partir de otra imagen: muestrear los píxeles con alf
 
 `resizable-navbar`, `hero-highlight`, `flip-words`, `hover-border-gradient`, `wobble-card`, `3d-card`, `lens`,
 `pointer-highlight`, `infinite-moving-cards`, `github-globe` (`globe.tsx`), `world-map`, `focus-cards`, `background-lines`,
-`floating-dock`, `text-hover-effect`.
+`floating-dock`, `text-hover-effect`, `timeline`, `stateful-button`, `text-generate-effect`, `evervault-card`
+(su `CardPattern`), `sticky-scroll-reveal`.
 
 Adaptaciones relevantes:
 

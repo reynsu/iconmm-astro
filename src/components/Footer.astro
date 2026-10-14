@@ -4,10 +4,16 @@ import FooterCta from "@/components/FooterCta";
 import SocialDock from "@/components/SocialDock";
 import BigIcon from "@/components/BigIcon";
 import { icex, legal, members, nav, offices, solutions } from "@/data/site";
+
+interface Props {
+  /** Bloque "¿Hablamos de tu próxima pantalla?" sobre el pie. Se oculta en páginas con su propio formulario o cierre. */
+  cta?: boolean;
+}
+const { cta = true } = Astro.props;
 ---
 
 <footer id="contacto" class="relative overflow-hidden bg-ink text-paper">
-  <FooterCta client:visible />
+  {cta && <FooterCta client:visible />}
 
   <div class="mx-auto max-w-7xl px-4 md:px-8">
     <div class="grid gap-12 border-t border-line-dark pt-16 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
@@ -49,9 +55,8 @@ import { icex, legal, members, nav, offices, solutions } from "@/data/site";
               </li>
             ))
           }
-          <li><a href="https://www.iconmm.com/become-partner/" class="text-paper/80 transition hover:text-signal">Conviértete en partner</a></li>
-          <li><a href="https://www.iconmm.com/careers/" class="text-paper/80 transition hover:text-signal">Únete al equipo</a></li>
-          <li><a href="https://www.iconmm.com/news/" class="text-paper/80 transition hover:text-signal">Sala de prensa</a></li>
+          <li><a href="/contacto" class="text-paper/80 transition hover:text-signal">Contacto</a></li>
+          <li><a href="https://www.iconmm.com/about-us/" class="text-paper/80 transition hover:text-signal">Conócenos</a></li>
         </ul>
       </nav>
 

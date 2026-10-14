@@ -3,11 +3,12 @@
 // clientes, ICEX, noticias y pie con oficinas y asociaciones.
 
 export const nav = [
-  { name: "Soluciones", link: "#soluciones" },
-  { name: "Clientes", link: "#clientes" },
-  { name: "Presencia", link: "#presencia" },
-  { name: "Noticias", link: "#noticias" },
-  { name: "Conócenos", link: "https://www.iconmm.com/about-us/" },
+  { name: "Soluciones", link: "/#soluciones" },
+  { name: "Presencia", link: "/#presencia" },
+  { name: "Partners", link: "/partners" },
+  { name: "Empleo", link: "/empleo" },
+  { name: "RSC", link: "/rsc" },
+  { name: "Noticias", link: "/noticias" },
 ];
 
 export const event = {
@@ -17,7 +18,7 @@ export const event = {
   city: "Berlín",
   dates: "22–25 sept. 2026",
   image: "/images/news-innotrans.png",
-  url: "https://www.iconmm.com/news/",
+  url: "/noticias",
 };
 
 export type Solution = {
@@ -149,25 +150,25 @@ export const news = [
     date: "19 ago 2026",
     title: "ICON Multimedia estará en InnoTrans 2026",
     image: "/images/news-innotrans.png",
-    link: "https://www.iconmm.com/news/",
+    link: "/noticias",
   },
   {
     date: "8 jul 2026",
     title: "DENEVA y Unilumin impulsan nuevas alianzas en México",
     image: "/images/news-unilumin.jpg",
-    link: "https://www.iconmm.com/news/",
+    link: "/noticias",
   },
   {
     date: "15 jun 2026",
     title: "ICON Multimedia impulsa junto a Siloé una nueva estación de Bosque Sonoro",
     image: "/images/news-siloe.jpg",
-    link: "https://www.iconmm.com/news/",
+    link: "/noticias",
   },
   {
     date: "27 may 2026",
     title: "DENEVA impulsa la experiencia digital del Rugby Europeo en Bilbao",
     image: "/images/news-rugby.png",
-    link: "https://www.iconmm.com/news/",
+    link: "/noticias",
   },
 ];
 
