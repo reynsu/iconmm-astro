@@ -7,19 +7,20 @@ interface Props {
 }
 
 const {
-  title = "ICON Multimedia — Software de cartelería digital",
-  description = "DENEVA, DENEVA.transit, MIRANDDA y KOMMANDA: software de digital signage, información al pasajero, smart mirror y kioscos de autoservicio.",
+  title = "ICON Multimedia — Fabricantes de software de Digital Signage",
+  description = "DENEVA, DENEVA.transit, MIRANDDA y KOMMANDA: software de digital signage, información al viajero, smart mirror y kioscos de autoservicio.",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class="dark">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#07070a" />
+    <meta name="theme-color" content="#f4f1ea" />
     <link rel="icon" type="image/png" href="/images/icon.png" />
+    <link rel="preload" href="/data/dancer.bin" as="fetch" crossorigin="anonymous" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/images/transit.jpg" />

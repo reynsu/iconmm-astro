@@ -1,56 +1,81 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
-import { solutions, type Solution } from "@/data/site";
-
-function Visual({ solution }: { solution: Solution }) {
-  return (
-    <figure className="relative h-72 w-full overflow-hidden rounded-2xl border border-line bg-ink-2 sm:h-96 lg:h-full">
-      <img src={solution.image} alt={solution.imageAlt} loading="lazy" className="size-full object-cover" />
-      {/* velo + línea de escaneo: la foto se lee como una pantalla encendida */}
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
-      <div className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0,transparent_3px,rgba(0,0,0,0.18)_3px,rgba(0,0,0,0.18)_4px)] opacity-40 mix-blend-multiply" />
-      <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
-        <div>
-          <p className="eyebrow text-fg/60">{solution.category}</p>
-          <p className="mt-1 text-2xl font-semibold tracking-tight text-fg">{solution.name}</p>
-        </div>
-        <span className="font-mono text-6xl font-medium text-white/10">{solution.code}</span>
-      </figcaption>
-    </figure>
-  );
-}
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import { Lens } from "@/components/ui/lens";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
+import { solutions } from "@/data/site";
 
 export default function Solutions() {
-  const content = solutions.map((solution) => ({
-    title: solution.name,
-    description: solution.description,
-    eyebrow: (
-      <p className="eyebrow mb-5 flex items-center gap-3 !text-signal">
-        <span>{solution.code}</span>
-        <span className="h-px w-8 bg-signal/40" />
-        <span>{solution.category}</span>
-      </p>
-    ),
-    meta: (
-      <>
-        <ul className="mt-8 flex flex-wrap gap-2">
-          {solution.features.map((feature) => (
-            <li key={feature} className="rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs text-fg/80">
-              {feature}
-            </li>
-          ))}
-        </ul>
-        <a
-          href={solution.link}
-          className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-fg transition hover:text-signal"
-        >
-          Descubrir {solution.name}
-          <IconArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
-      </>
-    ),
-    content: <Visual solution={solution} />,
-  }));
+  return (
+    <div className="mx-auto max-w-7xl px-4 md:px-8">
+      <header className="max-w-3xl">
+        <p className="eyebrow flex items-center gap-3 text-paper/50">
+          <span className="text-signal">[01]</span> Soluciones
+        </p>
+        <h2 className="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-paper md:text-6xl">
+          Cuatro productos,{" "}
+          <PointerHighlight
+            containerClassName="inline-block align-baseline"
+            rectangleClassName="border-signal/70"
+            pointerClassName="text-signal"
+          >
+            <span className="relative z-10 px-2 font-serif font-normal tracking-normal text-paper/90 italic">una plataforma</span>
+          </PointerHighlight>
+        </h2>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-pretty text-paper/60 md:text-lg">
+          Del andén al probador: software desarrollado en España que convierte cualquier pantalla en un canal de
+          comunicación medible.
+        </p>
+      </header>
 
-  return <StickyScroll content={content} contentClassName="border border-line" />;
+      <div className="mt-14 grid gap-6 md:grid-cols-2 md:gap-8">
+        {solutions.map((s) => (
+          <CardContainer key={s.id} containerClassName="w-full py-0" className="w-full">
+            <CardBody className="group/card h-auto w-full rounded-3xl border border-line-dark bg-ink-2 p-5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] md:p-7">
+              <div className="flex items-start justify-between gap-4">
+                <CardItem as="p" translateZ={30} className="eyebrow text-signal">
+                  {s.code} · {s.category}
+                </CardItem>
+                <CardItem translateZ={20} className="flex gap-1.5">
+                  {s.tags.map((tag) => (
+                    <span key={tag} className="rounded-full border border-paper/10 px-2 py-0.5 font-mono text-[10px] text-paper/50">
+                      {tag}
+                    </span>
+                  ))}
+                </CardItem>
+              </div>
+              <CardItem as="h3" translateZ={60} className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-paper md:text-4xl">
+                {s.name}
+              </CardItem>
+              <CardItem as="p" translateZ={40} className="mt-3 max-w-md text-[15px] leading-relaxed text-pretty text-paper/60">
+                {s.description}
+              </CardItem>
+              <CardItem translateZ={90} className="mt-6 w-full">
+                <Lens zoomFactor={1.7} lensSize={190}>
+                  <img
+                    src={s.image}
+                    alt={s.imageAlt}
+                    loading="lazy"
+                    className="aspect-[16/10] w-full rounded-2xl object-cover"
+                  />
+                </Lens>
+              </CardItem>
+              <div className="mt-6 flex items-center justify-between">
+                <CardItem
+                  as="a"
+                  href={s.link}
+                  translateZ={30}
+                  className="inline-flex items-center gap-2 rounded-full border border-paper/20 px-4 py-2 text-sm font-medium text-paper transition hover:bg-paper hover:text-ink"
+                >
+                  Saber más <IconArrowUpRight className="size-4" />
+                </CardItem>
+                <CardItem translateZ={20} className="font-mono text-[11px] tracking-[0.18em] text-paper/35 uppercase">
+                  iconmm.com
+                </CardItem>
+              </div>
+            </CardBody>
+          </CardContainer>
+        ))}
+      </div>
+    </div>
+  );
 }

@@ -1,18 +1,22 @@
-// Contenido del sitio, extraído de iconmm.com (octubre 2026).
+// Contenido del sitio, extraído de iconmm.com/es (octubre 2026).
+// Mismas secciones y textos que la home original: hero + InnoTrans, cuatro soluciones,
+// clientes, ICEX, noticias y pie con oficinas y asociaciones.
 
 export const nav = [
   { name: "Soluciones", link: "#soluciones" },
-  { name: "Plataforma", link: "#plataforma" },
-  { name: "Presencia", link: "#presencia" },
+  { name: "Clientes", link: "#clientes" },
   { name: "Noticias", link: "#noticias" },
-  { name: "Contacto", link: "#contacto" },
+  { name: "Conócenos", link: "https://www.iconmm.com/about-us/" },
 ];
 
 export const event = {
-  name: "InnoTrans 2026",
+  eyebrow: "Próximo evento",
+  title: "DENEVA en InnoTrans 2026",
+  body: "DENEVA estará presente en InnoTrans 2026, que se celebrará del 22 al 25 de septiembre de 2026, mostrando sus soluciones de Sistemas de Información al Viajero (SIV) y Digital Signage para entornos de movilidad.",
   city: "Berlín",
-  dates: "22–25 sept.",
-  url: "https://www.innotrans.de",
+  dates: "22–25 sept. 2026",
+  image: "/images/news-innotrans.png",
+  url: "https://www.iconmm.com/news/",
 };
 
 export type Solution = {
@@ -21,7 +25,7 @@ export type Solution = {
   name: string;
   category: string;
   description: string;
-  features: string[];
+  tags: string[];
   image: string;
   imageAlt: string;
   link: string;
@@ -32,10 +36,10 @@ export const solutions: Solution[] = [
     id: "deneva",
     code: "01",
     name: "DENEVA",
-    category: "Digital Signage",
+    category: "Cartelería digital",
     description:
-      "Plataforma de experiencia digital para automatizar y personalizar redes de cartelería. Gestiona una pantalla o miles desde un único lugar y adapta el contenido al negocio local y a cada audiencia.",
-    features: ["Monitorización en tiempo real", "Multi-player y multi-dispositivo", "Omnicanal"],
+      "El software de Digital Signage DENEVA permite crear y optimizar experiencias de cliente únicas a través de soluciones innovadoras.",
+    tags: ["Retail", "Transporte", "Corporativo"],
     image: "/images/signage.jpg",
     imageAlt: "Videowall de DENEVA bajo la cúpula de un centro comercial",
     link: "https://www.iconmm.com/deneva-digital-signage/",
@@ -44,10 +48,10 @@ export const solutions: Solution[] = [
     id: "transit",
     code: "02",
     name: "DENEVA.transit",
-    category: "Información al pasajero",
+    category: "Sistema de información al viajero",
     description:
-      "CMS para pantallas de información al pasajero en estaciones inteligentes y a bordo. Llegadas, salidas e incidencias en tiempo real, combinando datos de tren, metro, bus, tranvía y taxi.",
-    features: ["Información multimodal", "Sincronización de alta precisión", "Locución accesible"],
+      "DENEVA.transit proporciona un avanzado sistema de gestión de contenidos para administrar Sistemas de Información al Pasajero en estaciones inteligentes.",
+    tags: ["Tren", "Metro", "Autobús"],
     image: "/images/transit.jpg",
     imageAlt: "Pantallas de información al pasajero de DENEVA.transit en una estación de Adif",
     link: "https://www.iconmm.com/deneva-passenger-information-system/",
@@ -56,10 +60,10 @@ export const solutions: Solution[] = [
     id: "mirandda",
     code: "03",
     name: "MIRANDDA",
-    category: "Smart Mirror",
+    category: "Smart mirror",
     description:
-      "Espejo inteligente que digitaliza el probador. El cliente ve tallas y colores disponibles, recibe sugerencias de look y pide otra prenda sin salir de la cabina.",
-    features: ["Detección RFID", "Sensores de presencia", "Business intelligence"],
+      "Mirandda es la potente solución para el sector retail que da vida a la experiencia de compra omnicanal en el área de probadores.",
+    tags: ["Moda", "RFID", "Omnicanal"],
     image: "/images/mirror.jpg",
     imageAlt: "Espejo inteligente MIRANDDA en un probador de moda",
     link: "https://www.iconmm.com/mirandda-smart-mirror/",
@@ -68,52 +72,15 @@ export const solutions: Solution[] = [
     id: "kommanda",
     code: "04",
     name: "KOMMANDA",
-    category: "Kiosco de autoservicio",
+    category: "Kiosko de autoservicio",
     description:
-      "Software de kiosco para pedir y pagar sin colas. Funciona sobre cualquier hardware, se integra con el TPV existente y actualiza precios y stock en tiempo real.",
-    features: ["Integración con TPV", "Control de stock automático", "Modo accesible"],
+      "Kommanda es la solución de quiosco de pedidos de vanguardia basada en IA, que se integra con los sistemas POS existentes para optimizar el proceso de compra de los clientes.",
+    tags: ["QSR", "IA", "TPV"],
     image: "/images/kiosk.jpg",
     imageAlt: "Clienta eligiendo su menú en un kiosco KOMMANDA",
     link: "https://www.iconmm.com/kommanda-digital-kiosk/",
   },
 ];
-
-export const stats = [
-  { value: "+12.000", label: "ubicaciones digitalizadas en todo el mundo" },
-  { value: "1.000 M", label: "de viajeros informados al año con DENEVA" },
-  { value: "+100", label: "funcionalidades en la plataforma" },
-  { value: "24/7", label: "equipo de soporte especializado" },
-];
-
-export const capabilities = [
-  {
-    title: "Una pantalla o miles",
-    description: "Control centralizado de toda la red desde un único panel, con contenidos segmentados por zona, estación o línea.",
-    icon: "layers",
-  },
-  {
-    title: "Datos en tiempo real",
-    description: "Integra fuentes externas —horarios, stock, precios, redes sociales— y las publica al instante.",
-    icon: "activity",
-  },
-  {
-    title: "Libertad de hardware",
-    description: "Compatible con los SoC de los principales fabricantes. Reutiliza las pantallas que ya tienes.",
-    icon: "cpu",
-  },
-  {
-    title: "Ciberseguridad",
-    description: "Perfiles de usuario, control de accesos y registro de actividad. Certificación ENS.",
-    icon: "shield",
-  },
-  {
-    title: "Medición de audiencias",
-    description: "Big data, informes y analítica para decidir qué contenido funciona y dónde.",
-    icon: "chart",
-  },
-];
-
-export const sectors = ["Transporte", "Retail", "QSR", "Banca", "Corporativo", "Supermercados", "Cruceros"];
 
 export const clients = [
   { name: "BBVA", src: "/images/clients/1.png" },
@@ -130,45 +97,53 @@ export const clients = [
   { name: "GSK", src: "/images/clients/12.png" },
 ];
 
+export const icex = {
+  text: "ICON Multimedia, S.L. ha participado en el Programa de Iniciación a la Exportación ICEX-Next, y ha contado con el apoyo de ICEX, así como con la cofinanciación de Fondos europeos FEDER, habiendo contribuido, según la medida de los mismos, al crecimiento económico de esta empresa, su región y de España en su conjunto.",
+  logos: [
+    { name: "ICEX · Fondos FEDER de la Unión Europea", src: "/images/icex.png", className: "h-7" },
+    { name: "Certificaciones ISO", src: "/images/isos.png", className: "h-12" },
+    { name: "Esquema Nacional de Seguridad", src: "/images/ens.png", className: "h-12" },
+    { name: "RGPD", src: "/images/gdpr.jpg", className: "h-12" },
+  ],
+};
+
 export const offices = [
   {
     region: "EMEA",
     city: "Palencia, España",
-    address: ["Avda. Santiago Amón 3-5", "34005 Palencia"],
+    address: ["Avda. Santiago Amón 3-5", "34005 Palencia (Spain)"],
     phone: "+34 979 70 29 06",
-    coords: { lat: 42.01, lng: -4.53 },
   },
   {
     region: "LATAM",
     city: "Ciudad de México",
     address: ["Av. Javier Barros Sierra 495, Santa Fe", "Álvaro Obregón, 01210 CDMX"],
     phone: "+52 55 7008 7238",
-    coords: { lat: 19.36, lng: -99.26 },
   },
 ];
 
 export const news = [
   {
     date: "19 ago 2026",
-    title: "ICON Multimedia expondrá en InnoTrans 2026",
+    title: "ICON Multimedia estará en InnoTrans 2026",
     image: "/images/news-innotrans.png",
     link: "https://www.iconmm.com/news/",
   },
   {
     date: "8 jul 2026",
-    title: "DENEVA y Unilumin refuerzan su alianza en México",
+    title: "DENEVA y Unilumin impulsan nuevas alianzas en México",
     image: "/images/news-unilumin.jpg",
     link: "https://www.iconmm.com/news/",
   },
   {
     date: "15 jun 2026",
-    title: "ICON Multimedia y Siloé lanzan un nuevo Bosque Sonoro",
+    title: "ICON Multimedia impulsa junto a Siloé una nueva estación de Bosque Sonoro",
     image: "/images/news-siloe.jpg",
     link: "https://www.iconmm.com/news/",
   },
   {
     date: "27 may 2026",
-    title: "DENEVA impulsa la experiencia digital del European Rugby en Bilbao",
+    title: "DENEVA impulsa la experiencia digital del Rugby Europeo en Bilbao",
     image: "/images/news-rugby.png",
     link: "https://www.iconmm.com/news/",
   },
@@ -190,4 +165,10 @@ export const members = [
   { name: "AETICAL", src: "/images/members/aetical.png" },
   { name: "EFCL", src: "/images/members/efcl.png" },
   { name: "CEOE", src: "/images/members/ceoe.png" },
+];
+
+export const legal = [
+  { name: "Aviso legal", href: "https://www.iconmm.com/legal-notice/" },
+  { name: "Política de privacidad", href: "https://www.iconmm.com/gdpr/" },
+  { name: "Política de cookies", href: "https://www.iconmm.com/cookie-policy/" },
 ];

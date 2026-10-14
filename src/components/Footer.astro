@@ -1,42 +1,34 @@
 ---
 import { Logo } from "@/components/Logo";
-import { members, nav, offices, social, solutions } from "@/data/site";
-
-const legal = [
-  { name: "Aviso legal", href: "https://www.iconmm.com/legal-notice/" },
-  { name: "Privacidad", href: "https://www.iconmm.com/gdpr/" },
-  { name: "Cookies", href: "https://www.iconmm.com/cookie-policy/" },
-];
+import FooterCta from "@/components/FooterCta";
+import SocialDock from "@/components/SocialDock";
+import BigIcon from "@/components/BigIcon";
+import { legal, members, nav, offices, solutions } from "@/data/site";
 ---
 
-<footer class="relative overflow-hidden border-t border-line">
-  <div class="mx-auto max-w-7xl px-4 pt-20 md:px-8">
-    <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+<footer id="contacto" class="relative overflow-hidden bg-ink text-paper">
+  <FooterCta client:visible />
+
+  <div class="mx-auto max-w-7xl px-4 md:px-8">
+    <div class="grid gap-12 border-t border-line-dark pt-16 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
       <div>
-        <Logo />
-        <p class="mt-6 max-w-xs text-sm leading-relaxed text-muted">
-          ICON Multimedia, S.L. Software de cartelería digital, información al pasajero, smart mirror y kioscos.
+        <Logo inverted />
+        <p class="mt-6 max-w-xs text-sm leading-relaxed text-paper/55">
+          ICON Multimedia, S.L. Fabricantes de software de digital signage, información al viajero, smart mirror y
+          kioscos de autoservicio.
         </p>
-        <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {
-            social.map((item) => (
-              <li>
-                <a href={item.href} target="_blank" rel="noreferrer" class="text-fg/70 transition hover:text-signal">
-                  {item.name}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+        <div class="mt-8">
+          <SocialDock client:visible />
+        </div>
       </div>
 
       <nav aria-label="Soluciones">
-        <p class="eyebrow">Soluciones</p>
+        <p class="eyebrow text-paper/45">Soluciones</p>
         <ul class="mt-5 space-y-3 text-sm">
           {
             solutions.map((item) => (
               <li>
-                <a href={item.link} class="text-fg/80 transition hover:text-fg">
+                <a href={item.link} class="text-paper/80 transition hover:text-signal">
                   {item.name}
                 </a>
               </li>
@@ -45,30 +37,39 @@ const legal = [
         </ul>
       </nav>
 
-      <nav aria-label="Navegación">
-        <p class="eyebrow">Empresa</p>
+      <nav aria-label="Empresa">
+        <p class="eyebrow text-paper/45">Empresa</p>
         <ul class="mt-5 space-y-3 text-sm">
           {
             nav.map((item) => (
               <li>
-                <a href={item.link} class="text-fg/80 transition hover:text-fg">
+                <a href={item.link} class="text-paper/80 transition hover:text-signal">
                   {item.name}
                 </a>
               </li>
             ))
           }
-          <li><a href="https://www.iconmm.com/careers/" class="text-fg/80 transition hover:text-fg">Trabaja con nosotros</a></li>
-          <li><a href="https://www.iconmm.com/become-partner/" class="text-fg/80 transition hover:text-fg">Hazte partner</a></li>
+          <li><a href="https://www.iconmm.com/become-partner/" class="text-paper/80 transition hover:text-signal">Conviértete en partner</a></li>
+          <li><a href="https://www.iconmm.com/careers/" class="text-paper/80 transition hover:text-signal">Únete al equipo</a></li>
+          <li><a href="https://www.iconmm.com/news/" class="text-paper/80 transition hover:text-signal">Sala de prensa</a></li>
         </ul>
       </nav>
 
-      <div class="space-y-6">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
         {
           offices.map((office) => (
-            <address class="text-sm not-italic">
-              <p class="eyebrow">{office.region}</p>
-              <p class="mt-3 leading-relaxed text-fg/80">{office.address.join(", ")}</p>
-              <a href={`tel:${office.phone.replace(/\s/g, "")}`} class="mt-1 inline-block font-mono text-fg/70 hover:text-signal">
+            <address class="rounded-2xl border border-line-dark bg-paper/[0.03] p-5 text-sm not-italic">
+              <p class="eyebrow text-signal">Oficina {office.region}</p>
+              <p class="mt-3 font-medium text-paper">{office.city}</p>
+              <p class="mt-1 leading-relaxed text-paper/55">
+                {office.address.map((line) => (
+                  <>
+                    {line}
+                    <br />
+                  </>
+                ))}
+              </p>
+              <a href={`tel:${office.phone.replace(/\s/g, "")}`} class="mt-3 inline-block font-mono text-paper/80 hover:text-signal">
                 {office.phone}
               </a>
             </address>
@@ -77,47 +78,26 @@ const legal = [
       </div>
     </div>
 
-    <div class="mt-16 flex flex-col gap-8 border-t border-line pt-10 lg:flex-row lg:items-center lg:justify-between">
-      <ul class="flex flex-wrap items-center gap-x-8 gap-y-5" aria-label="Asociaciones">
+    <div class="mt-16 border-t border-line-dark pt-10">
+      <p class="eyebrow text-paper/45">Somos miembros de</p>
+      <ul class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Asociaciones">
         {
           members.map((m) => (
             <li>
-              <img src={m.src} alt={m.name} loading="lazy" class="h-7 w-auto opacity-45 brightness-0 invert transition hover:opacity-80" />
+              <img src={m.src} alt={m.name} loading="lazy" class="h-7 w-auto opacity-50 brightness-0 invert transition hover:opacity-90" />
             </li>
           ))
         }
       </ul>
-      <a
-        href="https://www.iconmm.com/wp-content/uploads/2025/07/Certificado_ENS.pdf"
-        class="flex shrink-0 items-center gap-3 rounded-xl border border-line px-4 py-2 text-xs text-muted transition hover:border-white/20"
-      >
-        <span class="rounded-md bg-white px-2 py-1"><img src="/images/ens.png" alt="" class="h-6 w-auto" /></span>
-        Certificado ENS
-      </a>
     </div>
 
-    <div class="mt-10 flex flex-col gap-4 rounded-2xl border border-line bg-ink-2 p-5 text-xs leading-relaxed text-muted md:flex-row md:items-center">
-      <span class="shrink-0 rounded-lg bg-white px-3 py-2">
-        <img src="/images/icex.png" alt="ICEX · Fondos FEDER de la Unión Europea" class="h-5 w-auto" />
-      </span>
-      <p>
-        ICON Multimedia ha participado en el Programa ICEX-Next de Iniciación a la Exportación, contando con el apoyo de
-        ICEX y la cofinanciación del fondo europeo FEDER.
-      </p>
-    </div>
-
-    <div class="flex flex-col gap-4 py-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-      <p>© {new Date().getFullYear()} ICON Multimedia, S.L.</p>
-      <ul class="flex gap-6">
-        {legal.map((item) => <li><a href={item.href} class="hover:text-fg">{item.name}</a></li>)}
+    <div class="mt-12 flex flex-col gap-4 border-t border-line-dark py-8 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {new Date().getFullYear()} ICON Multimedia, S.L. Todos los derechos reservados.</p>
+      <ul class="flex flex-wrap gap-6">
+        {legal.map((item) => <li><a href={item.href} class="hover:text-paper">{item.name}</a></li>)}
       </ul>
     </div>
   </div>
 
-  <p
-    aria-hidden="true"
-    class="pointer-events-none -mb-[0.22em] text-center text-[22vw] leading-none font-bold tracking-[-0.06em] text-transparent select-none [-webkit-text-stroke:1px_rgb(255_255_255/0.07)]"
-  >
-    ICON
-  </p>
+  <BigIcon client:visible />
 </footer>

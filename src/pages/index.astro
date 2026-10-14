@@ -1,251 +1,95 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import SectionHeading from "@/components/SectionHeading.astro";
 import SiteHeader from "@/components/SiteHeader";
-import DepartureBoard from "@/components/DepartureBoard";
-import Clients from "@/components/Clients";
+import Hero from "@/components/Hero";
+import InnoTransCard from "@/components/InnoTransCard";
 import Solutions from "@/components/Solutions";
-import Platform from "@/components/Platform";
+import Clients from "@/components/Clients";
+import News from "@/components/News";
 import Footer from "@/components/Footer.astro";
-import { Spotlight } from "@/components/ui/spotlight-new";
-import WorldMap from "@/components/ui/world-map";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import { Button as MovingBorderButton } from "@/components/ui/moving-border";
-import { news, offices, stats } from "@/data/site";
-
-const red = (a: number, b: number) =>
-  `radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(0, 97%, 82%, ${a}) 0, hsla(0, 97%, 62%, ${b}) 50%, hsla(0, 97%, 50%, 0) 80%)`;
-
-const [emea, latam] = offices;
-const routes = [
-  { start: emea.coords, end: latam.coords },
-  { start: emea.coords, end: { lat: 52.52, lng: 13.4 } }, // Berlín · InnoTrans
-  { start: latam.coords, end: { lat: 6.24, lng: -75.58 } }, // Metro de Medellín
-  { start: latam.coords, end: { lat: -33.45, lng: -70.67 } }, // Metro de Santiago
-];
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { icex } from "@/data/site";
 ---
 
 <Layout>
   <SiteHeader client:load />
 
   <main>
-    <!-- HERO -->
-    <section class="relative isolate -mt-20 overflow-hidden pt-40 pb-20 md:pt-48 md:pb-28">
+    <!-- 1 · HERO: bailarina de papel + "Enabling a smart future" -->
+    <section class="relative isolate overflow-hidden">
+      <div aria-hidden="true" class="grain pointer-events-none absolute inset-0 -z-10 opacity-[0.35] mix-blend-multiply"></div>
       <div
         aria-hidden="true"
-        class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.035)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] bg-[size:72px_72px]"
+        class="pointer-events-none absolute top-0 right-0 -z-10 h-[640px] w-[640px] translate-x-1/3 -translate-y-1/3 rounded-full bg-signal/[0.12] blur-[140px]"
       >
       </div>
-      <div
-        aria-hidden="true"
-        class="absolute top-0 left-1/2 -z-10 h-[520px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal/[0.13] blur-[140px]"
-      >
-      </div>
-      <Spotlight client:load gradientFirst={red(0.1, 0.03)} />
+      <Hero client:load />
 
-      <div class="relative mx-auto max-w-7xl px-4 md:px-8">
-        <div class="mx-auto max-w-4xl text-center">
-          <p class="eyebrow inline-flex items-center gap-3 rounded-full border border-line bg-white/[0.03] px-4 py-2 backdrop-blur">
-            <span class="text-signal">●</span> Software de cartelería digital<span class="hidden sm:inline"> · EMEA &amp; LATAM</span>
-          </p>
-          <h1
-            class="mt-8 text-[clamp(2.75rem,8vw,6.75rem)] leading-[0.92] font-semibold tracking-[-0.045em] text-balance text-fg"
-          >
-            Activamos un futuro <em class="font-serif font-normal tracking-[-0.02em] text-signal italic">inteligente</em>
-          </h1>
-          <p class="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-muted md:text-xl">
-            Cartelería digital, información al pasajero, espejos inteligentes y kioscos de autoservicio. Una plataforma
-            para gestionar una pantalla o miles, desde un único lugar.
-          </p>
-          <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <MovingBorderButton
-              client:visible
-              as="a"
-              href="#soluciones"
-              borderRadius="9999px"
-              duration={3500}
-              containerClassName="h-12 w-auto"
-              borderClassName="bg-[radial-gradient(#fc4444_40%,transparent_60%)]"
-              className="border-line bg-ink-2/90 px-6 text-[15px] font-medium text-fg"
-            >
-              Explorar soluciones
-            </MovingBorderButton>
-            <a
-              href="#contacto"
-              class="inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px] font-medium text-fg/80 transition hover:text-fg"
-            >
-              Hablar con un experto <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="mt-20 md:mt-24">
-          <DepartureBoard client:load />
-        </div>
+      <!-- Tarjeta InnoTrans (en el original va bajo el titular) -->
+      <div class="mx-auto max-w-7xl px-4 pb-12 md:px-8 md:pb-20">
+        <InnoTransCard client:visible />
       </div>
     </section>
 
-    <!-- CLIENTES -->
-    <section aria-labelledby="clientes" class="relative border-y border-line bg-ink-2/60 py-12">
-      <p id="clientes" class="eyebrow mb-6 text-center">Ya confían en nosotros</p>
+    <!-- 2 · SOLUCIONES (banda oscura) -->
+    <section id="soluciones" class="relative isolate bg-ink py-24 md:py-32">
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgb(244_241_234/0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgb(244_241_234/0.04)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
+      >
+      </div>
+      <Solutions client:visible />
+    </section>
+
+    <!-- 3 · CLIENTES -->
+    <section id="clientes" aria-labelledby="clientes-title" class="border-b border-line bg-paper-2/70 py-20 md:py-24">
+      <div class="mx-auto mb-10 max-w-7xl px-4 md:px-8">
+        <p class="eyebrow"><span class="text-signal">[02]</span> Clientes</p>
+        <h2 id="clientes-title" class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-balance text-ink md:text-5xl">
+          Ellos ya <em class="font-serif font-normal tracking-normal text-ink/70 italic">confían</em> en nosotros
+        </h2>
+      </div>
       <Clients client:visible />
     </section>
 
-    <!-- CIFRAS -->
-    <section aria-label="ICON en cifras" class="mx-auto max-w-7xl px-4 md:px-8">
-      <dl class="grid grid-cols-2 border-x border-line lg:grid-cols-4">
-        {
-          stats.map((stat, i) => (
-            <div
-              class:list={[
-                "border-b border-line px-6 py-10 md:px-8 md:py-14",
-                i % 2 === 0 && "border-r",
-                i < 2 && "lg:border-r",
-                i === 2 && "lg:border-r",
-              ]}
-            >
-              <dt class="sr-only">{stat.label}</dt>
-              <dd>
-                <span class="block text-4xl font-semibold tracking-[-0.04em] text-fg tabular-nums md:text-6xl">
-                  {stat.value}
-                </span>
-                <span class="mt-3 block max-w-[16rem] text-sm leading-snug text-muted">{stat.label}</span>
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
-    </section>
-
-    <!-- SOLUCIONES -->
-    <section id="soluciones" class="mx-auto max-w-7xl px-4 py-28 md:px-8 md:py-36">
-      <SectionHeading index="01" label="Soluciones">
-        Cuatro productos. <em class="font-serif font-normal tracking-normal text-fg/70 italic">Una misma</em> plataforma.
-        <Fragment slot="lead">
-          Del andén al probador: software propio, desarrollado en España, que convierte cualquier pantalla en un canal de
-          comunicación medible.
-        </Fragment>
-      </SectionHeading>
-      <div class="mt-16 lg:mt-8">
-        <Solutions client:visible />
-      </div>
-    </section>
-
-    <!-- PLATAFORMA -->
-    <section id="plataforma" class="relative border-t border-line bg-ink-2/40 py-28 md:py-36">
-      <div class="mx-auto max-w-7xl px-4 md:px-8">
-        <SectionHeading index="02" label="Plataforma">
-          Todo lo que ocurre en tus pantallas, <em class="font-serif font-normal tracking-normal text-fg/70 italic"
-            >bajo control</em
-          >.
-          <Fragment slot="lead">
-            Más de 100 funcionalidades para publicar, monitorizar y medir. Sin atarte a un fabricante de hardware.
-          </Fragment>
-        </SectionHeading>
-        <div class="mt-16">
-          <Platform client:visible />
-        </div>
-      </div>
-    </section>
-
-    <!-- PRESENCIA -->
-    <section id="presencia" class="relative overflow-hidden border-t border-line py-28 md:py-36">
-      <div class="mx-auto grid max-w-7xl items-center gap-16 px-4 md:px-8 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <SectionHeading index="03" label="Presencia">
-            De Palencia a <em class="font-serif font-normal tracking-normal text-fg/70 italic">Ciudad de México</em>.
-            <Fragment slot="lead">
-              Dos sedes para dar servicio a metros, operadores ferroviarios y marcas en Europa, Oriente Medio, África y
-              Latinoamérica.
-            </Fragment>
-          </SectionHeading>
-          <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+    <!-- 4 · ICEX / certificaciones -->
+    <section id="icex" aria-label="Programa ICEX-Next y certificaciones" class="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
+      <div class="relative rounded-[2rem] border border-line bg-white/50 p-2">
+        <GlowingEffect client:visible spread={40} glow={true} disabled={false} proximity={80} inactiveZone={0.01} borderWidth={2} />
+        <div class="relative grid items-center gap-10 rounded-[1.6rem] bg-paper p-8 md:p-12 lg:grid-cols-[1.3fr_1fr]">
+          <div>
+            <p class="eyebrow"><span class="text-signal">[03]</span> Compromiso</p>
+            <p class="mt-5 text-base leading-relaxed text-pretty text-ink/75 md:text-lg">{icex.text}</p>
+          </div>
+          <ul class="flex flex-wrap items-center justify-start gap-x-10 gap-y-6 lg:justify-end" aria-label="Logotipos y certificaciones">
             {
-              offices.map((office) => (
-                <address class="rounded-2xl border border-line bg-ink-2 p-6 not-italic">
-                  <p class="eyebrow !text-signal">Oficina {office.region}</p>
-                  <p class="mt-3 text-lg font-medium text-fg">{office.city}</p>
-                  <p class="mt-2 text-sm leading-relaxed text-muted">
-                    {office.address.map((line) => (
-                      <>
-                        {line}
-                        <br />
-                      </>
-                    ))}
-                  </p>
-                  <a
-                    href={`tel:${office.phone.replace(/\s/g, "")}`}
-                    class="mt-4 inline-block font-mono text-sm text-fg/90 transition hover:text-signal"
-                  >
-                    {office.phone}
-                  </a>
-                </address>
+              icex.logos.map((logo) => (
+                <li class="rounded-xl bg-white px-4 py-3 shadow-[0_1px_2px_rgba(20,20,24,0.06)] ring-1 ring-line">
+                  <img src={logo.src} alt={logo.name} loading="lazy" class:list={["w-auto", logo.className]} />
+                </li>
               ))
             }
-          </div>
-        </div>
-        <div class="relative">
-          <div aria-hidden="true" class="absolute inset-0 -z-10 rounded-full bg-signal/10 blur-[120px]"></div>
-          <WorldMap client:visible dots={routes} lineColor="#fc4444" dotColor="#ffffff55" />
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- NOTICIAS -->
-    <section id="noticias" class="border-t border-line py-28 md:py-36">
+    <!-- 5 · NOTICIAS -->
+    <section id="noticias" class="border-t border-line py-24 md:py-32">
       <div class="mx-auto max-w-7xl px-4 md:px-8">
         <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading index="04" label="Noticias">
-            Lo último <em class="font-serif font-normal tracking-normal text-fg/70 italic">en pantalla</em>.
-          </SectionHeading>
-          <a
-            href="https://www.iconmm.com/news/"
-            class="shrink-0 text-sm font-medium text-fg/80 transition hover:text-signal">Ver todas las noticias →</a
+          <div class="max-w-3xl">
+            <p class="eyebrow"><span class="text-signal">[04]</span> Noticias</p>
+            <h2 class="mt-5 text-4xl leading-[1.02] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
+              Últimas <em class="font-serif font-normal tracking-normal text-ink/70 italic">noticias</em>
+            </h2>
+          </div>
+          <a href="https://www.iconmm.com/news/" class="shrink-0 text-sm font-medium text-ink/70 transition hover:text-signal"
+            >Ver sala de prensa →</a
           >
         </div>
-        <HoverEffect
-          client:visible
-          className="-mx-2 mt-10 gap-y-2 py-0 md:grid-cols-2 lg:grid-cols-4"
-          items={news.map((item) => ({ title: item.title, link: item.link, image: item.image, eyebrow: item.date }))}
-        />
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section id="contacto" class="px-4 pb-24 md:px-8">
-      <div
-        class="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-line bg-ink-2 px-6 py-24 text-center md:py-32"
-      >
-        <BackgroundBeams client:visible className="-z-10 opacity-70" />
-        <div
-          aria-hidden="true"
-          class="absolute bottom-0 left-1/2 -z-10 h-64 w-[700px] -translate-x-1/2 translate-y-1/2 rounded-full bg-signal/25 blur-[100px]"
-        >
-        </div>
-        <p class="eyebrow"><span class="text-signal">[05]</span> Contacto</p>
-        <h2
-          class="mx-auto mt-6 max-w-3xl text-4xl leading-[1.02] font-semibold tracking-[-0.04em] text-balance text-fg md:text-7xl"
-        >
-          ¿Hablamos de tu <em class="font-serif font-normal tracking-normal text-signal italic">próxima pantalla</em>?
-        </h2>
-        <p class="mx-auto mt-6 max-w-xl text-lg text-pretty text-muted">
-          Nuestro equipo comercial te ayuda a encontrar la solución que mejor encaja. Y el de soporte está disponible
-          24/7 para que tu red esté siempre lista.
-        </p>
-        <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a
-            href="https://www.iconmm.com/contact-us/"
-            class="inline-flex h-12 items-center rounded-full bg-gradient-to-b from-signal to-signal-deep px-7 text-[15px] font-medium text-white shadow-[0_2px_0_0_rgba(255,255,255,0.3)_inset,0_12px_32px_-8px_rgba(252,68,68,0.7)] transition hover:-translate-y-0.5"
-          >
-            Hablar con ventas
-          </a>
-          <a
-            href={`tel:${emea.phone.replace(/\s/g, "")}`}
-            class="inline-flex h-12 items-center gap-2 rounded-full border border-line bg-white/[0.03] px-7 font-mono text-sm text-fg/90 transition hover:border-white/20"
-          >
-            {emea.phone}
-          </a>
+        <div class="mt-12">
+          <News client:visible />
         </div>
       </div>
     </section>
