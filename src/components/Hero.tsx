@@ -1,17 +1,40 @@
 import { IconArrowRight } from "@tabler/icons-react";
-import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import { Highlight } from "@/components/ui/hero-highlight";
 import { FlipWords } from "@/components/ui/flip-words";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import PaperDancer from "@/components/PaperDancer";
+import PrototypeSwitcher from "@/components/PrototypeSwitcher";
+import { HERO_VARIANTS, HeroBackground } from "@/components/HeroBackgrounds";
+import { useEffect, useState, type ReactNode } from "react";
 
 const words = ["cartelería digital", "información al viajero", "probadores inteligentes", "kioscos de autoservicio"];
 
+// PROTOTIPO · fondos del hero conmutables con ?variant=0|A|B|C (ver HeroBackgrounds.tsx).
+function useVariant() {
+  const [variant, setVariant] = useState(HERO_VARIANTS[0].key);
+  useEffect(() => {
+    const v = new URLSearchParams(window.location.search).get("variant");
+    if (v && HERO_VARIANTS.some((x) => x.key === v)) setVariant(v);
+  }, []);
+  const change = (key: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("variant", key);
+    history.replaceState(null, "", url);
+    setVariant(key);
+  };
+  return [variant, change] as const;
+}
+
 export default function Hero() {
+  const [variant, setVariant] = useVariant();
+  const Shell = PlainShell; // la trama de puntos original (HeroHighlight) se descartó en la ronda 1
   return (
-    <HeroHighlight
+    <Shell
       containerClassName="h-auto min-h-0 items-stretch justify-start bg-transparent [mask-image:linear-gradient(to_bottom,black_70%,transparent)]"
       className="w-full"
     >
+      <HeroBackground variant={variant} />
+      <PrototypeSwitcher variants={HERO_VARIANTS} current={variant} onChange={setVariant} />
       <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pt-28 pb-10 md:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10 lg:pt-32 lg:pb-16">
         <div className="relative z-10 order-2 lg:order-1">
           <p className="eyebrow flex items-center gap-3">
@@ -55,6 +78,14 @@ export default function Hero() {
           <p className="eyebrow mt-2 text-center text-[10px] lg:hidden">Toca la bailarina</p>
         </div>
       </div>
-    </HeroHighlight>
+    </Shell>
+  );
+}
+
+function PlainShell({ children, className }: { children: ReactNode; className?: string; containerClassName?: string }) {
+  return (
+    <div className="group relative flex w-full items-stretch justify-start">
+      <div className={className}>{children}</div>
+    </div>
   );
 }
