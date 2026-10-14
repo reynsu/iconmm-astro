@@ -41,7 +41,7 @@ export default function Hero() {
               Descubrir soluciones <IconArrowRight className="size-4" />
             </HoverBorderGradient>
             <a
-              href="#contacto"
+              href="/contacto"
               className="group inline-flex h-12 items-center gap-2 px-2 text-[15px] font-medium text-ink/70 transition hover:text-ink"
             >
               Hablar con nosotros

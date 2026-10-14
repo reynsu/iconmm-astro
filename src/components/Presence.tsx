@@ -15,7 +15,8 @@ import { cn } from "@/lib/utils";
  * Transición: el globo no se mueve ni escala. El fondo oscuro con el mapa se revela con un
  * círculo que nace en el disco del globo y crece hasta cubrir la pantalla (clip-path), con
  * un borde luminoso como frente de onda; el globo y el texto se desvanecen a su paso.
- * El progreso del scroll se amortigua antes de aplicarse para que sea fluido.
+ * El scroll sólo dispara la transición (y la revierte al volver arriba): una vez iniciada se
+ * completa sola, con tiempo propio (~3 s), sin necesidad de seguir haciendo scroll.
  */
 
 const SIGNAL = "#e8362a";
@@ -89,11 +90,16 @@ export default function Presence() {
   const [stage, setStage] = useState<"globe" | "map">("globe");
   const [mapMounted, setMapMounted] = useState(false);
 
-  // --- progreso amortiguado -------------------------------------------------
-  const target = useRef(0);
+  // --- progreso con tiempo propio -------------------------------------------
+  // current ∈ [0,1] es la posición en la coreografía; el scroll sólo decide el destino.
   const current = useRef(0);
+  const tween = useRef<{ from: number; to: number; start: number; dur: number } | null>(null);
+  const phase = useRef<"A" | "B">("A");
   const raf = useRef(0);
   const pointer = useRef({ x: 0.5, y: 0.5, px: 0.5, py: 0.5 });
+  const DURATION = 3000; // ms para recorrer toda la coreografía
+  const TRIGGER_ON = 0.22; // progreso de scroll que inicia la transición
+  const TRIGGER_OFF = 0.1; // por debajo, vuelve al globo
 
   const apply = (p: number) => {
     const sticky = stickyEl.current, reveal = revealEl.current, ring = ringEl.current;
@@ -156,14 +162,33 @@ export default function Presence() {
 
   const tick = () => {
     raf.current = 0;
-    const diff = target.current - current.current;
-    current.current = Math.abs(diff) < 0.0004 ? target.current : current.current + diff * 0.12;
-    apply(current.current);
+    let animating = false;
+    const tw = tween.current;
+    if (tw) {
+      const t = clamp01((performance.now() - tw.start) / tw.dur);
+      // avance lineal: cada capa ya lleva su propia curva (smoothstep) dentro de apply()
+      current.current = tw.from + (tw.to - tw.from) * t;
+      if (t >= 1) tween.current = null;
+      else animating = true;
+      apply(current.current);
+    }
     const pointerMoving = applyPointer();
-    if (Math.abs(target.current - current.current) > 0 || pointerMoving) raf.current = requestAnimationFrame(tick);
+    if (animating || pointerMoving) raf.current = requestAnimationFrame(tick);
   };
   const kick = () => {
     if (!raf.current) raf.current = requestAnimationFrame(tick);
+  };
+  const goTo = (to: number) => {
+    if (document.hidden) {
+      tween.current = null;
+      current.current = to;
+      apply(to);
+      return;
+    }
+    const from = current.current;
+    if (Math.abs(to - from) < 0.001) return;
+    tween.current = { from, to, start: performance.now(), dur: Math.max(300, DURATION * Math.abs(to - from)) };
+    kick();
   };
 
   // Progreso 0 → 1 mientras la sección está "pegada": no depende del bucle de
@@ -176,16 +201,18 @@ export default function Presence() {
   };
   useEffect(() => {
     const onScroll = () => {
-      target.current = readProgress();
-      if (document.hidden) {
-        // sin requestAnimationFrame (pestaña oculta) se aplica al instante
-        current.current = target.current;
-        apply(current.current);
-        return;
+      const sp = readProgress();
+      if (phase.current === "A" && sp >= TRIGGER_ON) {
+        phase.current = "B";
+        goTo(1);
+      } else if (phase.current === "B" && sp <= TRIGGER_OFF) {
+        phase.current = "A";
+        goTo(0);
       }
-      kick();
     };
-    target.current = current.current = readProgress();
+    // estado inicial sin animar (por si se carga la página a mitad de sección)
+    phase.current = readProgress() >= TRIGGER_ON ? "B" : "A";
+    current.current = phase.current === "B" ? 1 : 0;
     apply(current.current);
     applyPointer();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -214,7 +241,7 @@ export default function Presence() {
   };
 
   return (
-    <div ref={ref} className="relative h-[300vh]">
+    <div ref={ref} className="relative h-[220vh]">
       <div ref={stickyEl} className="sticky top-0 h-screen overflow-hidden" onPointerMove={onPointerMove}>
         {/* Fase B · fondo oscuro con el mapa a pantalla completa, revelado en círculo */}
         <div

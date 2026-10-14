@@ -1,0 +1,105 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/PageHero.astro";
+import ContactPaths from "@/components/ContactPaths";
+import ContactForm from "@/components/ContactForm";
+import WorldMap from "@/components/ui/world-map";
+import Footer from "@/components/Footer.astro";
+import { contact } from "@/data/pages";
+import { offices, presence } from "@/data/site";
+
+const [emea, latam] = presence.hubs;
+const dots = [{ start: { lat: emea.lat, lng: emea.lng, label: emea.name }, end: { lat: latam.lat, lng: latam.lng, label: latam.name } }];
+---
+
+<Layout
+  title="Contacto — ICON Multimedia"
+  description="Habla con el equipo comercial o con soporte 24/7 de ICON Multimedia. Oficinas en Palencia (EMEA) y Ciudad de México (LATAM)."
+>
+  <SiteHeader client:load />
+
+  <main>
+    <PageHero
+      index="C"
+      eyebrow={contact.eyebrow}
+      lead="Elige con quién quieres hablar y cuéntanos tu proyecto. Te respondemos desde Palencia o Ciudad de México."
+      class="pb-10 md:pb-14"
+    >
+      Hablemos de tu <em class="font-serif font-normal tracking-normal text-ink/70 italic">próxima pantalla</em>
+    </PageHero>
+
+    <section class="pb-20 md:pb-24">
+      <div class="mx-auto max-w-7xl px-4 md:px-8">
+        <ContactPaths client:visible />
+      </div>
+    </section>
+
+    <!-- Formulario -->
+    <section id="formulario" class="border-t border-line py-24 md:py-32">
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 md:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div>
+          <p class="eyebrow flex items-center gap-3"><span class="text-signal">[01]</span> Escríbenos</p>
+          <h2 class="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
+            ¿Hablamos?
+          </h2>
+          <p class="mt-6 max-w-md text-base leading-relaxed text-pretty text-muted md:text-lg">
+            Rellena el formulario y te contactará la persona adecuada según el motivo que elijas.
+          </p>
+          <dl class="mt-10 space-y-6">
+            {
+              offices.map((o) => (
+                <div class="border-t border-line pt-5">
+                  <dt class="eyebrow text-signal">Oficina {o.region}</dt>
+                  <dd class="mt-2 text-sm leading-relaxed text-ink/80">
+                    {o.address.join(", ")}
+                    <br />
+                    <a href={`tel:${o.phone.replace(/\s/g, "")}`} class="font-mono text-ink transition hover:text-signal">
+                      {o.phone}
+                    </a>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <div id="comercial">
+          <div id="soporte">
+            <ContactForm client:visible variant="contacto" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Oficinas -->
+    <section class="border-t border-line bg-paper-2/70 py-24 md:py-32">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div>
+          <p class="eyebrow flex items-center gap-3"><span class="text-signal">[02]</span> Dónde estamos</p>
+          <h2 class="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
+            Dos sedes, <em class="font-serif font-normal tracking-normal text-ink/70 italic">dos continentes</em>.
+          </h2>
+          <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            {
+              offices.map((o) => (
+                <li class="rounded-2xl border border-line bg-white/60 p-5">
+                  <p class="eyebrow text-signal">{o.region}</p>
+                  <p class="mt-2 text-lg font-medium text-ink">{o.city}</p>
+                  <p class="mt-1 text-sm leading-relaxed text-muted">{o.address.join(", ")}</p>
+                  <a href={`tel:${o.phone.replace(/\s/g, "")}`} class="mt-3 inline-block font-mono text-sm text-ink/80 transition hover:text-signal">
+                    {o.phone}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="rounded-[2rem] border border-line bg-white/60 p-4 md:p-8">
+          <WorldMap client:visible dots={dots} lineColor="#e8362a" dotColor="#14141866" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer cta={false} />
+</Layout>

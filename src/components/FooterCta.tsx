@@ -22,7 +22,7 @@ export default function FooterCta() {
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <HoverBorderGradient
             as="a"
-            href="https://www.iconmm.com/contact-us/"
+            href="/contacto"
             containerClassName="rounded-full bg-paper/20"
             className="flex items-center gap-2 bg-paper px-6 py-3 text-[15px] font-medium text-ink"
           >

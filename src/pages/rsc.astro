@@ -1,0 +1,61 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/PageHero.astro";
+import CsrCommitments from "@/components/CsrCommitments";
+import Footer from "@/components/Footer.astro";
+import { csr } from "@/data/pages";
+---
+
+<Layout
+  title="Responsabilidad social corporativa — ICON Multimedia"
+  description="Compromiso de ICON Multimedia con las personas, el medio ambiente y la sociedad: diversidad, ICON Move y alertas de personas desaparecidas en DENEVA."
+>
+  <SiteHeader client:load />
+
+  <main>
+    <PageHero
+      index="R"
+      eyebrow={csr.eyebrow}
+      lead="Tres compromisos que atraviesan la forma en que trabajamos: con las personas que forman el equipo, con el entorno y con la sociedad a la que llegan nuestras pantallas."
+    >
+      Responsabilidad social <em class="font-serif font-normal tracking-normal text-ink/70 italic">corporativa</em>
+    </PageHero>
+
+    <!-- Compromisos -->
+    <section class="border-t border-line py-10 md:py-16">
+      <div class="mx-auto max-w-7xl px-4 md:px-8">
+        <CsrCommitments client:visible />
+      </div>
+    </section>
+
+    <!-- Certificaciones -->
+    <section class="border-t border-line bg-paper-2/70 py-24 md:py-32">
+      <div class="mx-auto max-w-7xl px-4 md:px-8">
+        <header class="max-w-3xl">
+          <p class="eyebrow flex items-center gap-3"><span class="text-signal">[04]</span> Certificaciones</p>
+          <h2 class="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
+            Calidad y seguridad, <em class="font-serif font-normal tracking-normal text-ink/70 italic">certificadas</em>.
+          </h2>
+        </header>
+        <ul class="mt-12 grid gap-5 md:grid-cols-3">
+          {
+            csr.certifications.map((c) => (
+              <li class="flex items-center justify-between gap-6 rounded-3xl border border-line bg-white/60 p-6">
+                <div>
+                  <p class="text-2xl font-semibold tracking-[-0.03em] text-ink">{c.name}</p>
+                  <p class="mt-1 text-sm text-muted">{c.detail}</p>
+                </div>
+                <span class="shrink-0 rounded-xl bg-white px-3 py-2 ring-1 ring-line">
+                  <img src={c.src} alt="" loading="lazy" class="h-10 w-auto" />
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

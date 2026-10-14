@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/PageHero.astro";
+import PerksVariants from "@/components/PerksVariants"; // PROTOTIPO: variantes con ?variant=
+import JobList from "@/components/JobList";
+import Footer from "@/components/Footer.astro";
+import { careers } from "@/data/pages";
+
+const openings = careers.jobs.length;
+---
+
+<Layout
+  title="Únete al equipo — ICON Multimedia"
+  description="Ofertas de empleo en ICON Multimedia, Palencia: sistemas, backend .NET, frontend Angular, soporte 24/7 y programa de prácticas."
+>
+  <SiteHeader client:load />
+
+  <main>
+    <PageHero index="E" eyebrow={careers.eyebrow} lead={careers.intro}>
+      Únete al <em class="font-serif font-normal tracking-normal text-ink/70 italic">equipo</em>
+      <Fragment slot="after">
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href="#ofertas" class="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[15px] font-medium text-paper transition hover:bg-signal">
+            Ver {openings} ofertas abiertas
+          </a>
+          <span class="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">Palencia · Presencial e híbrido</span>
+        </div>
+      </Fragment>
+    </PageHero>
+
+    <!-- Cómo trabajamos -->
+    <section class="border-y border-line bg-paper-2/70 py-24 md:py-32">
+      <div class="mx-auto max-w-7xl px-4 md:px-8">
+        <header class="max-w-3xl">
+          <p class="eyebrow flex items-center gap-3"><span class="text-signal">[01]</span> Cómo trabajamos</p>
+          <h2 class="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
+            Compromiso, compañerismo <em class="font-serif font-normal tracking-normal text-ink/70 italic">y cercanía</em>.
+          </h2>
+        </header>
+        <div class="mt-14">
+          <PerksVariants client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Ofertas -->
+    <section id="ofertas" class="py-24 md:py-32">
+      <div class="mx-auto max-w-7xl px-4 md:px-8">
+        <header class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div class="max-w-3xl">
+            <p class="eyebrow flex items-center gap-3"><span class="text-signal">[02]</span> Ofertas</p>
+            <h2 class="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
+              Estamos <em class="font-serif font-normal tracking-normal text-ink/70 italic">buscando</em>…
+            </h2>
+          </div>
+          <p class="max-w-sm text-sm leading-relaxed text-muted">
+            Abre cada oferta para ver funciones, perfil y condiciones. La inscripción se hace en iconmm.com.
+          </p>
+        </header>
+        <div class="mt-12">
+          <JobList client:visible />
+        </div>
+      </div>
+    </section>
+
+    <!-- Prácticas -->
+    <section class="px-4 pb-24 md:px-8 md:pb-32">
+      <div class="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-ink px-6 py-16 text-center text-paper md:py-20">
+        <div aria-hidden="true" class="absolute -top-24 left-1/2 -z-10 h-64 w-[640px] -translate-x-1/2 rounded-full bg-signal/30 blur-[100px]"></div>
+        <p class="eyebrow text-paper/50">Programa de prácticas</p>
+        <h2 class="mx-auto mt-5 max-w-2xl text-3xl leading-[1.05] font-semibold tracking-[-0.035em] text-balance md:text-5xl">
+          ¿Tu primera experiencia profesional? <em class="font-serif font-normal tracking-normal text-paper/80 italic">Empieza aquí</em>.
+        </h2>
+        <p class="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-paper/60">
+          Envía tu CV y, si tu perfil encaja con nuestras necesidades, nos pondremos en contacto contigo.
+        </p>
+        <a
+          href="https://www.iconmm.com/es/jobs/quieres-hacer-practicas-con-nosotros/"
+          target="_blank"
+          rel="noreferrer"
+          class="mt-8 inline-flex h-12 items-center rounded-full bg-paper px-6 text-[15px] font-medium text-ink transition hover:bg-signal hover:text-paper"
+        >
+          Enviar mi CV
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer cta={false} />
+</Layout>
