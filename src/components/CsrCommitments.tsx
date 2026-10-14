@@ -1,27 +1,29 @@
+import { useEffect, useState } from "react";
 import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
-import Counter from "@/components/Counter";
+import PrototypeSwitcher from "@/components/PrototypeSwitcher";
+import { STATS_VARIANTS, StatsVariant } from "@/components/CsrStatsVariants";
 import { csr } from "@/data/pages";
 
-function Stats({ stats }: { stats: { value: number; label: string }[] }) {
-  return (
-    <div className="flex h-full flex-col justify-between rounded-3xl border border-line-dark bg-ink p-7 text-paper md:p-9">
-      <p className="eyebrow text-paper/45">En cifras</p>
-      <dl className={stats.length > 2 ? "grid grid-cols-2 gap-6" : "space-y-8"}>
-        {stats.map((s) => (
-          <div key={s.label}>
-            <dd className="text-5xl font-semibold tracking-[-0.04em] tabular-nums md:text-6xl">
-              <Counter value={s.value} />
-            </dd>
-            <dt className="mt-2 max-w-[14rem] text-sm leading-snug text-paper/55">{s.label}</dt>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
+// PROTOTIPO · tres variantes del panel "En cifras", conmutables con ?variant=A|B|C en /rsc.
+function useVariant() {
+  const [variant, setVariant] = useState(STATS_VARIANTS[0].key);
+  useEffect(() => {
+    const v = new URLSearchParams(window.location.search).get("variant");
+    if (v && STATS_VARIANTS.some((x) => x.key === v)) setVariant(v);
+  }, []);
+  const change = (key: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("variant", key);
+    history.replaceState(null, "", url);
+    setVariant(key);
+  };
+  return [variant, change] as const;
 }
 
 export default function CsrCommitments() {
+  const [variant, setVariant] = useVariant();
+
   const content = csr.commitments.map((c) => ({
     title: c.title,
     description: c.body,
@@ -47,8 +49,13 @@ export default function CsrCommitments() {
         )}
       </div>
     ),
-    content: <Stats stats={c.stats} />,
+    content: <StatsVariant key={variant} variant={variant} stats={c.stats} index={c.index} />,
   }));
 
-  return <StickyScroll content={content} contentClassName="rounded-3xl" />;
+  return (
+    <>
+      <StickyScroll content={content} contentClassName="rounded-3xl" />
+      <PrototypeSwitcher variants={STATS_VARIANTS} current={variant} onChange={setVariant} />
+    </>
+  );
 }
