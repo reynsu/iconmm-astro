@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { withBase } from "@/lib/url";
 
 /**
  * La bailarina del hero original (iconmm.com), reconstruida en 3D con three.js como
@@ -10,7 +11,7 @@ import * as THREE from "three";
  * un muelle amortiguado los devuelve poco a poco a su sitio con un ligero aleteo.
  */
 
-const DATA_URL = "/data/dancer.bin";
+const DATA_URL = withBase("/data/dancer.bin");
 
 type Props = { className?: string };
 

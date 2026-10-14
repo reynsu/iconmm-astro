@@ -77,7 +77,7 @@ export default function ContactForm({ variant = "contacto", className }: Props) 
     >
       {sent && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-[2rem] bg-paper/95 p-8 text-center">
-          <p className="eyebrow text-signal">Mensaje enviado</p>
+          <p className="eyebrow text-signal-ink">Mensaje enviado</p>
           <p className="mt-4 max-w-md text-2xl font-semibold tracking-[-0.03em] text-ink">Gracias. Te responderemos muy pronto.</p>
           <button
             type="button"
@@ -150,7 +150,7 @@ export default function ContactForm({ variant = "contacto", className }: Props) 
         </label>
       </div>
 
-      {error && <p className="mt-4 text-sm text-signal">{error}</p>}
+      {error && <p className="mt-4 text-sm text-signal-ink">{error}</p>}
 
       <div className="mt-8 flex flex-wrap items-center gap-4">
         <Button type="submit" onClick={submit} className="px-6 py-3 text-[15px]">

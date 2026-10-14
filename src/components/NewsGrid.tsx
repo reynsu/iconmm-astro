@@ -1,6 +1,7 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { FocusCards } from "@/components/ui/focus-cards";
 import { newsAll } from "@/data/pages";
+import { pic } from "@/lib/images";
 
 export default function NewsGrid() {
   const withImage = newsAll.filter((n) => n.image);
@@ -18,19 +19,20 @@ export default function NewsGrid() {
       >
         <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[26rem]">
           <img
-            src={featured.image}
+            {...pic(featured.image, "(min-width: 768px) 56vw, 100vw")}
             alt=""
+            fetchPriority="high"
             className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
           />
         </div>
         <div className="flex flex-col justify-between p-7 md:p-10">
           <p className="eyebrow flex items-center gap-3 text-paper/50">
-            <span className="text-signal">●</span> Destacado · {featured.date}
+            <span className="text-signal-ink">●</span> Destacado · {featured.date}
           </p>
           <div>
             <h2 className="mt-8 text-3xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance md:text-4xl">{featured.title}</h2>
             <p className="mt-5 text-[15px] leading-relaxed text-paper/60">{featured.excerpt}</p>
-            <span className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-signal">
+            <span className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-signal-paper">
               Leer la noticia <IconArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </div>

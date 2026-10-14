@@ -3,20 +3,21 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Lens } from "@/components/ui/lens";
 import { PointerHighlight } from "@/components/ui/pointer-highlight";
 import { solutions } from "@/data/site";
+import { pic } from "@/lib/images";
 
 export default function Solutions() {
   return (
     <div className="mx-auto max-w-7xl px-4 md:px-8">
       <header className="max-w-3xl">
-        <p className="eyebrow flex items-center gap-3 text-paper/50">
-          <span className="text-signal">[01]</span> Soluciones
+        <p className="eyebrow flex items-center gap-3 text-paper/55">
+          <span className="text-signal-paper">[01]</span> Soluciones
         </p>
         <h2 className="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-paper md:text-6xl">
           Cuatro productos,{" "}
           <PointerHighlight
             containerClassName="inline-block align-baseline"
             rectangleClassName="border-signal/70"
-            pointerClassName="text-signal"
+            pointerClassName="text-signal-paper"
           >
             <span className="relative z-10 px-2 font-serif font-normal tracking-normal text-paper/90 italic">una plataforma</span>
           </PointerHighlight>
@@ -32,12 +33,12 @@ export default function Solutions() {
           <CardContainer key={s.id} containerClassName="w-full py-0" className="w-full">
             <CardBody className="group/card h-auto w-full rounded-3xl border border-line-dark bg-ink-2 p-5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] md:p-7">
               <div className="flex items-start justify-between gap-4">
-                <CardItem as="p" translateZ={30} className="eyebrow text-signal">
+                <CardItem as="p" translateZ={30} className="eyebrow text-signal-paper">
                   {s.code} · {s.category}
                 </CardItem>
                 <CardItem translateZ={20} className="flex gap-1.5">
                   {s.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-paper/10 px-2 py-0.5 font-mono text-[10px] text-paper/50">
+                    <span key={tag} className="rounded-full border border-paper/10 px-2 py-0.5 font-mono text-[10px] text-paper/60">
                       {tag}
                     </span>
                   ))}
@@ -52,7 +53,7 @@ export default function Solutions() {
               <CardItem translateZ={90} className="mt-6 w-full">
                 <Lens zoomFactor={1.7} lensSize={190}>
                   <img
-                    src={s.image}
+                    {...pic(s.image, "(min-width: 768px) 44vw, 92vw")}
                     alt={s.imageAlt}
                     loading="lazy"
                     className="aspect-[16/10] w-full rounded-2xl object-cover"
@@ -68,7 +69,7 @@ export default function Solutions() {
                 >
                   Saber más <IconArrowUpRight className="size-4" />
                 </CardItem>
-                <CardItem translateZ={20} className="font-mono text-[11px] tracking-[0.18em] text-paper/35 uppercase">
+                <CardItem translateZ={20} className="font-mono text-[11px] tracking-[0.18em] text-paper/55 uppercase">
                   iconmm.com
                 </CardItem>
               </div>

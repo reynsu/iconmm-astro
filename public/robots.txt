@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reynsu.github.io/iconmm-astro/sitemap-index.xml

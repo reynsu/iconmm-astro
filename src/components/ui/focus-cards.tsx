@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import { pic } from "@/lib/images";
 
 // Adaptación: cada tarjeta es un enlace con antetítulo (fecha) y llamada a la acción,
 // y la rejilla se controla con className.
@@ -37,7 +38,7 @@ export const Card = React.memo(
       )}
     >
       <img
-        src={card.src}
+        {...pic(card.src, "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw")}
         alt=""
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"

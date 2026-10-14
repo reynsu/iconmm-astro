@@ -11,6 +11,7 @@ import {
   NavbarLogo,
 } from "@/components/ui/resizable-navbar";
 import { nav } from "@/data/site";
+import { withBase } from "@/lib/url";
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function SiteHeader() {
       <NavBody>
         <NavbarLogo />
         <NavItems items={nav} />
-        <NavbarButton href="/contacto" variant="dark" className="relative z-20 rounded-full bg-ink px-5 font-medium text-paper">
+        <NavbarButton href={withBase("/contacto")} variant="dark" className="relative z-20 rounded-full bg-ink px-5 font-medium text-paper">
           Contacto
         </NavbarButton>
       </NavBody>
@@ -42,7 +43,7 @@ export default function SiteHeader() {
             </a>
           ))}
           <NavbarButton
-            href="/contacto"
+            href={withBase("/contacto")}
             variant="dark"
             onClick={() => setIsOpen(false)}
             className="w-full rounded-full bg-ink font-medium text-paper"

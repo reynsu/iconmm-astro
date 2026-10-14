@@ -1,3 +1,5 @@
+import { withBase } from "@/lib/url";
+
 // Contenido de las páginas interiores, extraído de iconmm.com/es (octubre 2026):
 // partners, empleo, responsabilidad social corporativa, noticias y contacto.
 
@@ -233,7 +235,7 @@ export const csr = {
         { value: 15, label: "mujeres en el equipo" },
         { value: 22, label: "hombres en el equipo" },
       ],
-      link: { label: "Ver ofertas de empleo", href: "/empleo" },
+      link: { label: "Ver ofertas de empleo", href: withBase("/empleo") },
     },
     {
       id: "medioambiente",

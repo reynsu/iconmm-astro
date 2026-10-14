@@ -1,4 +1,6 @@
 ---
+import { withBase } from "@/lib/url";
+import { picAttrs } from "@/lib/images";
 import { Logo } from "@/components/Logo";
 import FooterCta from "@/components/FooterCta";
 import SocialDock from "@/components/SocialDock";
@@ -29,7 +31,7 @@ const { cta = true } = Astro.props;
       </div>
 
       <nav aria-label="Soluciones">
-        <p class="eyebrow text-paper/45">Soluciones</p>
+        <p class="eyebrow text-paper/55">Soluciones</p>
         <ul class="mt-5 space-y-3 text-sm">
           {
             solutions.map((item) => (
@@ -44,7 +46,7 @@ const { cta = true } = Astro.props;
       </nav>
 
       <nav aria-label="Empresa">
-        <p class="eyebrow text-paper/45">Empresa</p>
+        <p class="eyebrow text-paper/55">Empresa</p>
         <ul class="mt-5 space-y-3 text-sm">
           {
             nav.map((item) => (
@@ -55,7 +57,7 @@ const { cta = true } = Astro.props;
               </li>
             ))
           }
-          <li><a href="/contacto" class="text-paper/80 transition hover:text-signal">Contacto</a></li>
+          <li><a href={withBase("/contacto")} class="text-paper/80 transition hover:text-signal">Contacto</a></li>
           <li><a href="https://www.iconmm.com/about-us/" class="text-paper/80 transition hover:text-signal">Conócenos</a></li>
         </ul>
       </nav>
@@ -64,7 +66,7 @@ const { cta = true } = Astro.props;
         {
           offices.map((office) => (
             <address class="rounded-2xl border border-line-dark bg-paper/[0.03] p-5 text-sm not-italic">
-              <p class="eyebrow text-signal">Oficina {office.region}</p>
+              <p class="eyebrow text-signal-paper">Oficina {office.region}</p>
               <p class="mt-3 font-medium text-paper">{office.city}</p>
               <p class="mt-1 leading-relaxed text-paper/55">
                 {office.address.map((line) => (
@@ -84,12 +86,12 @@ const { cta = true } = Astro.props;
     </div>
 
     <div class="mt-16 border-t border-line-dark pt-10">
-      <p class="eyebrow text-paper/45">Somos miembros de</p>
+      <p class="eyebrow text-paper/55">Somos miembros de</p>
       <ul class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Asociaciones">
         {
           members.map((m) => (
             <li>
-              <img src={m.src} alt={m.name} loading="lazy" class="h-7 w-auto opacity-50 brightness-0 invert transition hover:opacity-90" />
+              <img {...picAttrs(m.src)} alt={m.name} loading="lazy" class="h-7 w-auto opacity-50 brightness-0 invert transition hover:opacity-90" />
             </li>
           ))
         }
@@ -102,14 +104,14 @@ const { cta = true } = Astro.props;
         {
           icex.logos.map((logo) => (
             <li class="rounded-lg bg-white px-3 py-2">
-              <img src={logo.src} alt={logo.name} loading="lazy" class="h-6 w-auto" />
+              <img {...picAttrs(logo.src)} alt={logo.name} loading="lazy" class="h-6 w-auto" />
             </li>
           ))
         }
       </ul>
     </div>
 
-    <div class="mt-6 flex flex-col gap-4 border-t border-line-dark py-8 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mt-6 flex flex-col gap-4 border-t border-line-dark py-8 text-xs text-paper/55 sm:flex-row sm:items-center sm:justify-between">
       <p>© {new Date().getFullYear()} ICON Multimedia, S.L. Todos los derechos reservados.</p>
       <ul class="flex flex-wrap gap-6">
         {legal.map((item) => <li><a href={item.href} class="hover:text-paper">{item.name}</a></li>)}

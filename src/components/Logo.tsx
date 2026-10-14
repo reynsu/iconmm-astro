@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { withBase } from "@/lib/url";
 
 // Reinterpretación del isotipo de ICON: la "i" inclinada, en blanco sobre el rojo de marca.
 export function LogoMark({ className }: { className?: string }) {
@@ -13,7 +14,7 @@ export function LogoMark({ className }: { className?: string }) {
 
 export function Logo({ className, inverted = false }: { className?: string; inverted?: boolean }) {
   return (
-    <a href="/" className={cn("relative z-20 flex items-center gap-2.5", className)} aria-label="ICON Multimedia, inicio">
+    <a href={withBase("/")} className={cn("relative z-20 flex items-center gap-2.5", className)}>
       <LogoMark />
       <span className="flex flex-col leading-none">
         <span className={cn("text-[15px] font-bold tracking-tight", inverted ? "text-paper" : "text-ink")}>ICON</span>

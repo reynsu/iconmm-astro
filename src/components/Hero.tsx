@@ -1,15 +1,36 @@
+import { lazy, Suspense, useEffect, useState } from "react";
 import { IconArrowRight } from "@tabler/icons-react";
 import { Highlight } from "@/components/ui/hero-highlight";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import PaperDancer from "@/components/PaperDancer";
+import { withBase } from "@/lib/url";
+
+// La bailarina (three.js, ~190 KB) se carga aparte y sólo cuando el navegador queda libre,
+// para que el titular pinte y la página responda antes.
+const PaperDancer = lazy(() => import("@/components/PaperDancer"));
+const DANCER_BOX = "relative h-[62vw] max-h-[520px] min-h-[300px] w-full lg:h-[640px] lg:max-h-none lg:w-[calc(100%+6rem)] lg:-translate-x-6";
+
+function useIdle() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(() => setReady(true), { timeout: 1500 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const t = window.setTimeout(() => setReady(true), 300);
+    return () => window.clearTimeout(t);
+  }, []);
+  return ready;
+}
 
 const words = ["cartelería digital", "información al viajero", "probadores inteligentes", "kioscos de autoservicio"];
 
-// Fondo "amanecer": del papel a un rubor cálido y de vuelta al papel. Sólo un gradiente.
-const DAWN = "linear-gradient(to bottom, #f4f1ea 0%, #f1dcd3 38%, #f7e6d2 52%, #f4f1ea 78%)";
+// Fondo "amanecer" en frío: del papel a un azul grisáceo y un lila pálido, y de vuelta al papel.
+const DAWN = "linear-gradient(to bottom, #f4f1ea 0%, #dde3ec 38%, #e8e3ef 52%, #f4f1ea 78%)";
 
 export default function Hero() {
+  const idle = useIdle();
   return (
     <div className="relative w-full">
       <div
@@ -43,7 +64,7 @@ export default function Hero() {
               Descubrir soluciones <IconArrowRight className="size-4" />
             </HoverBorderGradient>
             <a
-              href="/contacto"
+              href={withBase("/contacto")}
               className="group inline-flex h-12 items-center gap-2 px-2 text-[15px] font-medium text-ink/70 transition hover:text-ink"
             >
               Hablar con nosotros
@@ -53,7 +74,13 @@ export default function Hero() {
         </div>
 
         <div className="order-1 lg:order-2">
-          <PaperDancer className="relative h-[62vw] max-h-[520px] min-h-[300px] w-full cursor-crosshair lg:h-[640px] lg:max-h-none lg:w-[calc(100%+6rem)] lg:-translate-x-6" />
+          {idle ? (
+            <Suspense fallback={<div className={DANCER_BOX} aria-hidden="true" />}>
+              <PaperDancer className={`${DANCER_BOX} cursor-crosshair`} />
+            </Suspense>
+          ) : (
+            <div className={DANCER_BOX} aria-hidden="true" />
+          )}
           <p className="eyebrow mt-2 text-center text-[10px] lg:hidden">Toca la bailarina</p>
         </div>
       </div>

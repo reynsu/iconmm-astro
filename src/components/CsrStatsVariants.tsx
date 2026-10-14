@@ -126,7 +126,7 @@ function BoardStats({ stats, index }: { stats: Stat[]; index: string }) {
           );
         })}
       </ul>
-      <p className="font-mono text-[10px] tracking-[0.18em] text-paper/30 uppercase">ICON Multimedia · Palencia</p>
+      <p className="font-mono text-[10px] tracking-[0.18em] text-paper/55 uppercase">ICON Multimedia · Palencia</p>
     </div>
   );
 }
@@ -163,7 +163,7 @@ function StageStats({ stats, index }: { stats: Stat[]; index: string }) {
         duration={8}
         xOffset={60}
       />
-      <div className="relative z-10 flex items-center justify-between p-7 font-mono text-[11px] tracking-[0.18em] text-paper/45 uppercase md:p-9">
+      <div className="relative z-10 flex items-center justify-between p-7 font-mono text-[11px] tracking-[0.18em] text-paper/55 uppercase md:p-9">
         <span>En cifras</span>
         <span>
           {String(i + 1).padStart(2, "0")}<span className="text-paper/25"> / {String(stats.length).padStart(2, "0")}</span>
@@ -221,7 +221,7 @@ function StageStats({ stats, index }: { stats: Stat[]; index: string }) {
             {k < i && <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-paper/50" />}
           </button>
         ))}
-        <span className="ml-3 self-center font-mono text-[10px] tracking-[0.18em] text-paper/30 uppercase">{index}</span>
+        <span className="ml-3 self-center font-mono text-[10px] tracking-[0.18em] text-paper/55 uppercase">{index}</span>
       </div>
     </div>
   );
@@ -274,7 +274,7 @@ function Ticket({ stat, index, n, dense }: { stat: Stat; index: string; n: numbe
             aria-hidden="true"
             className={cn("block w-24 bg-[repeating-linear-gradient(to_right,#141418_0_1px,transparent_1px_3px,#141418_3px_5px,transparent_5px_6px,#141418_6px_7px,transparent_7px_10px)]", dense ? "h-4" : "h-6")}
           />
-          <span className={cn("font-mono tracking-[0.2em] text-signal uppercase", dense ? "text-[9px]" : "text-[10px]")}>Válido</span>
+          <span className={cn("font-mono tracking-[0.2em] text-signal-ink uppercase", dense ? "text-[9px]" : "text-[10px]")}>Válido</span>
         </div>
       </div>
     </motion.li>
@@ -290,7 +290,7 @@ function TicketStats({ stats, index }: { stats: Stat[]; index: string }) {
         className="absolute inset-0 bg-[radial-gradient(rgb(20_20_24/0.12)_1px,transparent_1px)] bg-[size:18px_18px] opacity-70"
       />
       <p className="eyebrow relative flex items-center gap-3 text-ink/50">
-        <span className="text-signal">[{index}]</span> En cifras
+        <span className="text-signal-ink">[{index}]</span> En cifras
       </p>
       <ul className={cn("relative mt-6 grid", dense ? "grid-cols-2 gap-4" : "gap-6")}>
         {stats.map((s, n) => (

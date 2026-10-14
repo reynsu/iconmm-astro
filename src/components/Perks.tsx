@@ -24,7 +24,7 @@ export default function Perks() {
             <div className="grid items-center gap-x-6 gap-y-2 py-6 md:grid-cols-[3.5rem_1fr_1.2fr_2.5rem] md:py-7">
               {/* número → icono */}
               <span className="relative flex h-10 items-center">
-                <span className="font-mono text-[11px] tracking-[0.18em] text-signal transition duration-300 group-hover:-translate-y-2 group-hover:opacity-0">
+                <span className="font-mono text-[11px] tracking-[0.18em] text-signal-ink transition duration-300 group-hover:-translate-y-2 group-hover:opacity-0">
                   0{i + 1}
                 </span>
                 <span className="absolute left-0 flex size-10 scale-75 items-center justify-center rounded-full bg-ink text-paper opacity-0 transition duration-300 group-hover:scale-100 group-hover:opacity-100">

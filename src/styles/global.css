@@ -23,9 +23,12 @@
   --color-line: rgb(20 20 24 / 0.1);
   --color-line-dark: rgb(244 241 234 / 0.1);
   --color-fg: #141418;
-  --color-muted: #6b6972;
+  --color-muted: #605e66; /* AA (≥4.5:1) también sobre el rubor del hero */
   --color-signal: #e8362a;
   --color-signal-deep: #b5231a;
+  /* rojos para texto pequeño con contraste AA: sobre papel y sobre tinta */
+  --color-signal-ink: #c4261b;
+  --color-signal-paper: #ff5a4d;
   --color-amber: #f2a93b;
 }
 

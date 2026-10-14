@@ -1,14 +1,16 @@
+import { withBase } from "@/lib/url";
+
 // Contenido del sitio, extraído de iconmm.com/es (octubre 2026).
 // Mismas secciones y textos que la home original: hero + InnoTrans, cuatro soluciones,
 // clientes, ICEX, noticias y pie con oficinas y asociaciones.
 
 export const nav = [
-  { name: "Soluciones", link: "/#soluciones" },
-  { name: "Presencia", link: "/#presencia" },
-  { name: "Partners", link: "/partners" },
-  { name: "Empleo", link: "/empleo" },
-  { name: "RSC", link: "/rsc" },
-  { name: "Noticias", link: "/noticias" },
+  { name: "Soluciones", link: withBase("/#soluciones") },
+  { name: "Presencia", link: withBase("/#presencia") },
+  { name: "Partners", link: withBase("/partners") },
+  { name: "Empleo", link: withBase("/empleo") },
+  { name: "RSC", link: withBase("/rsc") },
+  { name: "Noticias", link: withBase("/noticias") },
 ];
 
 export const event = {
@@ -18,7 +20,7 @@ export const event = {
   city: "Berlín",
   dates: "22–25 sept. 2026",
   image: "/images/news-innotrans.png",
-  url: "/noticias",
+  url: withBase("/noticias"),
 };
 
 export type Solution = {
@@ -150,25 +152,25 @@ export const news = [
     date: "19 ago 2026",
     title: "ICON Multimedia estará en InnoTrans 2026",
     image: "/images/news-innotrans.png",
-    link: "/noticias",
+    link: withBase("/noticias"),
   },
   {
     date: "8 jul 2026",
     title: "DENEVA y Unilumin impulsan nuevas alianzas en México",
     image: "/images/news-unilumin.jpg",
-    link: "/noticias",
+    link: withBase("/noticias"),
   },
   {
     date: "15 jun 2026",
     title: "ICON Multimedia impulsa junto a Siloé una nueva estación de Bosque Sonoro",
     image: "/images/news-siloe.jpg",
-    link: "/noticias",
+    link: withBase("/noticias"),
   },
   {
     date: "27 may 2026",
     title: "DENEVA impulsa la experiencia digital del Rugby Europeo en Bilbao",
     image: "/images/news-rugby.png",
-    link: "/noticias",
+    link: withBase("/noticias"),
   },
 ];
 

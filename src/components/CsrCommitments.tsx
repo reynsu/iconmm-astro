@@ -29,7 +29,7 @@ export default function CsrCommitments() {
     description: c.body,
     eyebrow: (
       <p className="eyebrow mb-5 flex items-center gap-3">
-        <span className="text-signal">[{c.index}]</span> Compromiso
+        <span className="text-signal-ink">[{c.index}]</span> Compromiso
       </p>
     ),
     meta: (
@@ -37,7 +37,7 @@ export default function CsrCommitments() {
         <ul className="space-y-2.5">
           {c.points.map((p) => (
             <li key={p} className="flex items-start gap-3 text-[15px] text-ink/80">
-              <IconCheck className="mt-1 size-4 shrink-0 text-signal" />
+              <IconCheck className="mt-1 size-4 shrink-0 text-signal-ink" />
               {p}
             </li>
           ))}

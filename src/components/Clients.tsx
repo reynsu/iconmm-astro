@@ -1,5 +1,6 @@
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { clients } from "@/data/site";
+import { pic } from "@/lib/images";
 
 // Dos filas en sentidos opuestos. Cada fila repite sus logos para que un solo "set" sea
 // más ancho que cualquier pantalla: así el bucle (-50 %) nunca deja huecos a los lados.
@@ -20,7 +21,7 @@ export default function Clients() {
           itemClassName="group flex h-20 w-44 items-center justify-center rounded-2xl border border-line bg-white/70 px-6 py-0 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset] md:h-24 md:w-52"
           renderItem={(client) => (
             <img
-              src={client.src}
+              {...pic(client.src)}
               alt={client.name}
               loading="lazy"
               className="max-h-11 w-auto max-w-full object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"

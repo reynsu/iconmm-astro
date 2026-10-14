@@ -1,0 +1,260 @@
+{
+  "/images/clients/1": {
+    "width": 150,
+    "height": 90,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/10": {
+    "width": 144,
+    "height": 86,
+    "widths": [
+      144
+    ]
+  },
+  "/images/clients/11": {
+    "width": 150,
+    "height": 132,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/12": {
+    "width": 150,
+    "height": 150,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/2": {
+    "width": 140,
+    "height": 82,
+    "widths": [
+      140
+    ]
+  },
+  "/images/clients/3": {
+    "width": 150,
+    "height": 58,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/4": {
+    "width": 132,
+    "height": 42,
+    "widths": [
+      132
+    ]
+  },
+  "/images/clients/5": {
+    "width": 150,
+    "height": 150,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/6": {
+    "width": 150,
+    "height": 150,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/7": {
+    "width": 150,
+    "height": 86,
+    "widths": [
+      150
+    ]
+  },
+  "/images/clients/8": {
+    "width": 114,
+    "height": 100,
+    "widths": [
+      114
+    ]
+  },
+  "/images/clients/9": {
+    "width": 103,
+    "height": 83,
+    "widths": [
+      103
+    ]
+  },
+  "/images/ens": {
+    "width": 280,
+    "height": 100,
+    "widths": [
+      280
+    ]
+  },
+  "/images/gdpr": {
+    "width": 300,
+    "height": 200,
+    "widths": [
+      300
+    ]
+  },
+  "/images/icex": {
+    "width": 459,
+    "height": 59,
+    "widths": [
+      459
+    ]
+  },
+  "/images/icon": {
+    "width": 192,
+    "height": 192,
+    "widths": [
+      192
+    ]
+  },
+  "/images/isos": {
+    "width": 280,
+    "height": 100,
+    "widths": [
+      280
+    ]
+  },
+  "/images/kiosk": {
+    "width": 2560,
+    "height": 1707,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ]
+  },
+  "/images/members/aetical": {
+    "width": 150,
+    "height": 56,
+    "widths": [
+      150
+    ]
+  },
+  "/images/members/avixa": {
+    "width": 150,
+    "height": 113,
+    "widths": [
+      150
+    ]
+  },
+  "/images/members/ceoe": {
+    "width": 150,
+    "height": 150,
+    "widths": [
+      150
+    ]
+  },
+  "/images/members/dslatam": {
+    "width": 150,
+    "height": 38,
+    "widths": [
+      150
+    ]
+  },
+  "/images/members/efcl": {
+    "width": 150,
+    "height": 150,
+    "widths": [
+      150
+    ]
+  },
+  "/images/members/mafex": {
+    "width": 150,
+    "height": 84,
+    "widths": [
+      150
+    ]
+  },
+  "/images/members/ptfe": {
+    "width": 150,
+    "height": 53,
+    "widths": [
+      150
+    ]
+  },
+  "/images/mirror": {
+    "width": 1280,
+    "height": 853,
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ]
+  },
+  "/images/news-ciber": {
+    "width": 1024,
+    "height": 576,
+    "widths": [
+      480,
+      800,
+      1024
+    ]
+  },
+  "/images/news-innotrans": {
+    "width": 768,
+    "height": 432,
+    "widths": [
+      480,
+      768
+    ]
+  },
+  "/images/news-ise": {
+    "width": 1024,
+    "height": 576,
+    "widths": [
+      480,
+      800,
+      1024
+    ]
+  },
+  "/images/news-rugby": {
+    "width": 768,
+    "height": 432,
+    "widths": [
+      480,
+      768
+    ]
+  },
+  "/images/news-siloe": {
+    "width": 768,
+    "height": 432,
+    "widths": [
+      480,
+      768
+    ]
+  },
+  "/images/news-unilumin": {
+    "width": 768,
+    "height": 432,
+    "widths": [
+      480,
+      768
+    ]
+  },
+  "/images/signage": {
+    "width": 1280,
+    "height": 720,
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ]
+  },
+  "/images/transit": {
+    "width": 1600,
+    "height": 900,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ]
+  }
+}

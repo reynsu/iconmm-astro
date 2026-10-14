@@ -46,21 +46,22 @@ export const StickyScroll = ({
             key={item.title + index}
             className="flex min-h-0 flex-col justify-center py-10 lg:min-h-[78vh] lg:py-0"
           >
-            <motion.div
-              initial={{ opacity: 0.25 }}
-              animate={{ opacity: activeCard === index ? 1 : 0.25 }}
-              transition={{ duration: 0.4 }}
-              className="max-lg:!opacity-100"
-            >
+            {/* Sólo se atenúa el título (texto grande, 3:1 basta); el resto queda legible (AA 4.5:1) */}
+            <div>
               {item.eyebrow}
-              <h3 className="text-4xl font-semibold tracking-tight text-fg md:text-5xl">
+              <motion.h2
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: activeCard === index ? 1 : 0.5 }}
+                transition={{ duration: 0.4 }}
+                className="text-4xl font-semibold tracking-tight text-fg max-lg:!opacity-100 md:text-5xl"
+              >
                 {item.title}
-              </h3>
+              </motion.h2>
               <p className="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg">
                 {item.description}
               </p>
               {item.meta}
-            </motion.div>
+            </div>
             <div className="mt-8 lg:hidden">{item.content}</div>
           </div>
         ))}

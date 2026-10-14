@@ -5,7 +5,7 @@ export default function PartnerJourney() {
   const data = partners.journey.map((step) => ({
     title: (
       <span className="flex items-baseline gap-4">
-        <span className="font-mono text-sm tracking-[0.18em] text-signal">{step.step}</span>
+        <span className="font-mono text-sm tracking-[0.18em] text-signal-ink">{step.step}</span>
         {step.title}
       </span>
     ),

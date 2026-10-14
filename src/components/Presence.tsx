@@ -1,8 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import { IconArrowRight } from "@tabler/icons-react";
-import { World, type GlobeConfig } from "@/components/ui/globe";
-import WorldMap from "@/components/ui/world-map";
+import type { GlobeConfig } from "@/components/ui/globe";
+
+// El globo (three-globe + R3F, unos 500 KB) y el mapa punteado se cargan aparte y sólo cuando la
+// sección se acerca, para que no pesen en la carga inicial de la home.
+const World = lazy(() => import("@/components/ui/globe").then((m) => ({ default: m.World })));
+const WorldMap = lazy(() => import("@/components/ui/world-map"));
 import { presence } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -342,7 +346,11 @@ export default function Presence() {
             className="absolute top-1/2 left-1/2 w-[max(100vw,200vh)] [mask-image:radial-gradient(ellipse_75%_70%_at_50%_50%,black_55%,transparent_100%)]"
             style={{ transform: "translate(-50%, -50%)" }}
           >
-            {mapMounted && <WorldMap dots={mapDots} lineColor={SIGNAL} dotColor="#ffffff3d" active={stage === "map"} />}
+            {mapMounted && (
+              <Suspense fallback={null}>
+                <WorldMap dots={mapDots} lineColor={SIGNAL} dotColor="#ffffff3d" active={stage === "map"} />
+              </Suspense>
+            )}
           </div>
           <div
             ref={glowEl}
@@ -367,7 +375,7 @@ export default function Presence() {
           <div className="mx-auto grid w-full max-w-7xl items-center gap-4 px-4 md:gap-8 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             <div ref={textA} className="relative z-10 will-change-[transform,opacity]">
               <p className="eyebrow flex items-center gap-3">
-                <span className="text-signal">[03]</span> Presencia internacional
+                <span className="text-signal-ink">[03]</span> Presencia internacional
               </p>
               <h2 className="mt-4 text-3xl leading-[1.02] font-semibold tracking-[-0.035em] text-balance text-ink md:mt-5 md:text-6xl">
                 Software español,{" "}
@@ -383,7 +391,7 @@ export default function Presence() {
                 <span className="relative h-px w-24 overflow-hidden bg-line">
                   <span ref={railEl} className="absolute inset-0 origin-left bg-signal" style={{ transform: "scaleX(0)" }} />
                 </span>
-                <span className="text-muted/60">Rutas</span>
+                <span className="text-muted">Rutas</span>
               </div>
 
               <ol className="mt-8 hidden max-w-lg border-t border-line lg:block">
@@ -392,7 +400,7 @@ export default function Presence() {
                     key={region.name}
                     className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-3 border-b border-line py-3.5 transition hover:border-ink/30"
                   >
-                    <span className="font-mono text-[11px] tracking-[0.18em] text-signal">0{i + 1}</span>
+                    <span className="font-mono text-[11px] tracking-[0.18em] text-signal-ink">0{i + 1}</span>
                     <div>
                       <p className="text-base font-medium tracking-[-0.01em] text-ink">{region.name}</p>
                       <p className="mt-1 max-w-sm text-[13px] leading-relaxed text-muted">{region.detail}</p>
@@ -406,7 +414,11 @@ export default function Presence() {
               ref={globeEl}
               className="relative mx-auto aspect-square w-full max-w-[min(100%,52vh)] cursor-grab will-change-[opacity] active:cursor-grabbing lg:aspect-[1.05/1] lg:max-h-[78vh] lg:max-w-none"
             >
-              {inView && stage === "globe" && <World globeConfig={globeConfig} data={arcs} />}
+              {inView && stage === "globe" && (
+                <Suspense fallback={null}>
+                  <World globeConfig={globeConfig} data={arcs} />
+                </Suspense>
+              )}
             </div>
           </div>
         </div>
@@ -420,7 +432,7 @@ export default function Presence() {
           <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
             <div className="max-w-xl">
               <p className="eyebrow flex items-center gap-3 text-paper/50">
-                <span className="text-signal">[03]</span> Rutas activas
+                <span className="text-signal-paper">[03]</span> Rutas activas
               </p>
               <ul className="mt-6 divide-y divide-paper/10">
                 {presence.routes.map((route, i) => (
@@ -429,15 +441,15 @@ export default function Presence() {
                     className={cn("flex items-baseline justify-between gap-6 py-3 md:py-4", i === 0 && "border-t border-paper/10")}
                   >
                     <span className="flex items-baseline gap-3 text-paper">
-                      <span className="font-mono text-[11px] tracking-[0.18em] text-paper/40 uppercase">{route.from}</span>
-                      <IconArrowRight className="size-3.5 translate-y-0.5 text-signal" />
+                      <span className="font-mono text-[11px] tracking-[0.18em] text-paper/55 uppercase">{route.from}</span>
+                      <IconArrowRight className="size-3.5 translate-y-0.5 text-signal-ink" />
                       <span className="text-xl font-medium tracking-[-0.02em] md:text-3xl">{route.to}</span>
                     </span>
                     <span className="hidden shrink-0 font-mono text-[11px] text-paper/50 sm:inline">{route.note}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-sm text-paper/45">
+              <p className="mt-6 text-sm text-paper/55">
                 Desde Palencia y Ciudad de México hacia metros, operadores ferroviarios y navieras.
               </p>
             </div>

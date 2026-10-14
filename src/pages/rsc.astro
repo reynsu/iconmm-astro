@@ -1,4 +1,5 @@
 ---
+import { picAttrs } from "@/lib/images";
 import Layout from "@/layouts/Layout.astro";
 import SiteHeader from "@/components/SiteHeader";
 import PageHero from "@/components/PageHero.astro";
@@ -33,7 +34,7 @@ import { csr } from "@/data/pages";
     <section class="border-t border-line bg-paper-2/70 py-24 md:py-32">
       <div class="mx-auto max-w-7xl px-4 md:px-8">
         <header class="max-w-3xl">
-          <p class="eyebrow flex items-center gap-3"><span class="text-signal">[04]</span> Certificaciones</p>
+          <p class="eyebrow flex items-center gap-3"><span class="text-signal-ink">[04]</span> Certificaciones</p>
           <h2 class="mt-5 text-4xl leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
             Calidad y seguridad, <em class="font-serif font-normal tracking-normal text-ink/70 italic">certificadas</em>.
           </h2>
@@ -47,7 +48,7 @@ import { csr } from "@/data/pages";
                   <p class="mt-1 text-sm text-muted">{c.detail}</p>
                 </div>
                 <span class="shrink-0 rounded-xl bg-white px-3 py-2 ring-1 ring-line">
-                  <img src={c.src} alt="" loading="lazy" class="h-10 w-auto" />
+                  <img {...picAttrs(c.src)} alt="" loading="lazy" class="h-10 w-auto" />
                 </span>
               </li>
             ))

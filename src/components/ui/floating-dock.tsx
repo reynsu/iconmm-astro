@@ -168,7 +168,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a href={href}>
+    <a href={href} aria-label={title}>
       <motion.div
         ref={ref}
         style={{ width, height }}

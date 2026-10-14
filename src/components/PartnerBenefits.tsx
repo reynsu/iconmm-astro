@@ -33,7 +33,7 @@ function BenefitCard({ benefit }: { benefit: (typeof partners.benefits)[number] 
         <span className="flex size-11 items-center justify-center rounded-full border border-paper/15 bg-paper/5 text-paper">
           <Icon className="size-5" />
         </span>
-        <span className="font-mono text-[11px] tracking-[0.18em] text-signal uppercase">{benefit.code}</span>
+        <span className="font-mono text-[11px] tracking-[0.18em] text-signal-paper uppercase">{benefit.code}</span>
       </div>
       <div className="relative z-10">
         <h3 className="text-2xl leading-tight font-semibold tracking-[-0.03em] text-balance text-paper">{benefit.title}</h3>

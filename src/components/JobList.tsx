@@ -8,7 +8,7 @@ function Column({ title, items }: { title: string; items: string[] }) {
   if (!items.length) return null;
   return (
     <div>
-      <p className="eyebrow text-signal">{title}</p>
+      <p className="eyebrow text-signal-ink">{title}</p>
       <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-ink/75">
         {items.map((it) => (
           <li key={it} className="flex gap-2.5">
@@ -37,7 +37,7 @@ export default function JobList() {
               onClick={() => setOpen(isOpen ? null : job.slug)}
               className="group grid w-full grid-cols-[2.5rem_1fr_auto] items-start gap-4 py-6 text-left md:grid-cols-[3rem_1fr_auto] md:py-8"
             >
-              <span className="pt-1 font-mono text-[11px] tracking-[0.18em] text-signal">0{i + 1}</span>
+              <span className="pt-1 font-mono text-[11px] tracking-[0.18em] text-signal-ink">0{i + 1}</span>
               <span>
                 <span className="block text-xl font-semibold tracking-[-0.025em] text-ink transition group-hover:text-signal md:text-3xl">
                   {job.title}

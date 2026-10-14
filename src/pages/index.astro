@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/lib/url";
 import Layout from "@/layouts/Layout.astro";
 import SiteHeader from "@/components/SiteHeader";
 import Hero from "@/components/Hero";
@@ -43,7 +44,7 @@ import Presence from "@/components/Presence";
     <!-- 3 · CLIENTES -->
     <section id="clientes" aria-labelledby="clientes-title" class="border-b border-line bg-paper-2/70 py-20 md:py-24">
       <div class="mx-auto mb-10 max-w-7xl px-4 md:px-8">
-        <p class="eyebrow"><span class="text-signal">[02]</span> Clientes</p>
+        <p class="eyebrow"><span class="text-signal-ink">[02]</span> Clientes</p>
         <h2 id="clientes-title" class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-balance text-ink md:text-5xl">
           Ellos ya <em class="font-serif font-normal tracking-normal text-ink/70 italic">confían</em> en nosotros
         </h2>
@@ -61,12 +62,12 @@ import Presence from "@/components/Presence";
       <div class="mx-auto max-w-7xl px-4 md:px-8">
         <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div class="max-w-3xl">
-            <p class="eyebrow"><span class="text-signal">[04]</span> Noticias</p>
+            <p class="eyebrow"><span class="text-signal-ink">[04]</span> Noticias</p>
             <h2 class="mt-5 text-4xl leading-[1.02] font-semibold tracking-[-0.035em] text-balance text-ink md:text-6xl">
               Últimas <em class="font-serif font-normal tracking-normal text-ink/70 italic">noticias</em>
             </h2>
           </div>
-          <a href="/noticias" class="shrink-0 text-sm font-medium text-ink/70 transition hover:text-signal"
+          <a href={withBase("/noticias")} class="shrink-0 text-sm font-medium text-ink/70 transition hover:text-signal"
             >Ver todas las noticias →</a
           >
         </div>
