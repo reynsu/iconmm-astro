@@ -11,12 +11,15 @@ interface MapProps {
   }>;
   lineColor?: string;
   dotColor?: string;
+  /** Si se indica, las rutas se dibujan cuando pasa a true (en vez de al entrar en pantalla). */
+  active?: boolean;
 }
 
 export default function WorldMap({
   dots = [],
   lineColor = "#0ea5e9",
   dotColor = "#FFFFFF33",
+  active,
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   // Generar el mapa es caro: sólo cuando cambia el color
@@ -79,13 +82,12 @@ export default function WorldMap({
                 initial={{
                   pathLength: 0,
                 }}
-                whileInView={{
-                  pathLength: 1,
-                }}
-                viewport={{ once: true }}
+                {...(active === undefined
+                  ? { whileInView: { pathLength: 1 }, viewport: { once: true } }
+                  : { animate: { pathLength: active ? 1 : 0 } })}
                 transition={{
                   duration: 1,
-                  delay: 0.5 * i,
+                  delay: 0.35 * i,
                   ease: "easeOut",
                 }}
                 key={`start-upper-${i}`}

@@ -1,10 +1,11 @@
 # ICON Multimedia — rediseño "papel"
 
 Nueva home de [iconmm.com](https://www.iconmm.com/) construida con **Astro**, **React** (islas), **Tailwind CSS v4**,
-componentes de **[Aceternity UI](https://ui.aceternity.com/components)** y **three.js** para la bailarina del hero.
+componentes de **[Aceternity UI](https://ui.aceternity.com/components)** y **three.js** para la bailarina del hero y el globo.
 
-Mantiene las mismas secciones y textos que la home original (hero + InnoTrans, cuatro soluciones, clientes, ICEX,
-noticias y pie con oficinas y asociaciones) con un estilo claro y editorial: fondo papel, tinta y el rojo ICON.
+Mantiene las secciones y textos de la home original (hero + InnoTrans, cuatro soluciones, clientes, noticias y pie con
+oficinas y asociaciones; el texto ICEX y las certificaciones van en el pie), añade una sección de presencia internacional
+y usa un estilo claro y editorial: fondo papel, tinta y el rojo ICON.
 
 ## Desarrollo
 
@@ -20,6 +21,8 @@ npm run build    # genera dist/
 - `src/data/site.ts` — todo el contenido (textos, soluciones, clientes, oficinas, noticias).
 - `src/components/` — secciones interactivas (islas React) y piezas Astro.
 - `src/components/PaperDancer.tsx` — la bailarina en 3D (three.js).
+- `src/components/Presence.tsx` — sección pegajosa: el globo (`github-globe`) se disuelve con el scroll y aparece el mapa (`world-map`).
+- `src/data/globe.json` — países (Natural Earth 110m, sólo geometría) para el globo.
 - `src/components/ui/` — componentes de Aceternity, instalados con `npx shadcn@latest add @aceternity/<nombre>` y adaptados a la paleta.
 - `src/styles/global.css` — tokens de color, tipografías y utilidades.
 - `public/data/dancer.bin` — posiciones y colores de los ~3.800 trozos de papel (26 KB).
@@ -42,8 +45,8 @@ Para regenerar los datos a partir de otra imagen: muestrear los píxeles con alf
 ## Componentes de Aceternity usados
 
 `resizable-navbar`, `hero-highlight`, `flip-words`, `hover-border-gradient`, `wobble-card`, `3d-card`, `lens`,
-`pointer-highlight`, `infinite-moving-cards`, `glowing-effect`, `focus-cards`, `background-lines`, `floating-dock`,
-`text-hover-effect`.
+`pointer-highlight`, `infinite-moving-cards`, `github-globe` (`globe.tsx`), `world-map`, `focus-cards`, `background-lines`,
+`floating-dock`, `text-hover-effect`.
 
 Adaptaciones relevantes:
 
@@ -51,3 +54,5 @@ Adaptaciones relevantes:
 - `wobble-card`: el ruido se genera en línea (SVG) en lugar de cargar `/noise.webp`.
 - `hover-border-gradient`, `hero-highlight`, `text-hover-effect`, `background-lines`, `floating-dock`: paleta de marca.
 - `infinite-moving-cards`: acepta `renderItem` para mostrar logos.
+- `world-map`: proyecta con `getPin` de `dotted-map` y no depende de `next-themes`.
+- `github-globe`: requiere `three-globe`, `@react-three/fiber` y `@react-three/drei`; se monta sólo con `client:only` y cuando la sección está cerca del viewport.

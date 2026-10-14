@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo";
 import FooterCta from "@/components/FooterCta";
 import SocialDock from "@/components/SocialDock";
 import BigIcon from "@/components/BigIcon";
-import { legal, members, nav, offices, solutions } from "@/data/site";
+import { icex, legal, members, nav, offices, solutions } from "@/data/site";
 ---
 
 <footer id="contacto" class="relative overflow-hidden bg-ink text-paper">
@@ -91,7 +91,20 @@ import { legal, members, nav, offices, solutions } from "@/data/site";
       </ul>
     </div>
 
-    <div class="mt-12 flex flex-col gap-4 border-t border-line-dark py-8 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mt-10 flex flex-col gap-5 rounded-2xl border border-line-dark bg-paper/[0.03] p-5 lg:flex-row lg:items-center lg:gap-8">
+      <p class="text-xs leading-relaxed text-paper/50 lg:flex-1">{icex.text}</p>
+      <ul class="flex shrink-0 flex-wrap items-center gap-3" aria-label="Logotipos y certificaciones">
+        {
+          icex.logos.map((logo) => (
+            <li class="rounded-lg bg-white px-3 py-2">
+              <img src={logo.src} alt={logo.name} loading="lazy" class="h-6 w-auto" />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="mt-6 flex flex-col gap-4 border-t border-line-dark py-8 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
       <p>© {new Date().getFullYear()} ICON Multimedia, S.L. Todos los derechos reservados.</p>
       <ul class="flex flex-wrap gap-6">
         {legal.map((item) => <li><a href={item.href} class="hover:text-paper">{item.name}</a></li>)}

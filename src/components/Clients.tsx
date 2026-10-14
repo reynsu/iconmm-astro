@@ -1,8 +1,11 @@
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { clients } from "@/data/site";
 
+// Dos filas en sentidos opuestos. Cada fila repite sus logos para que un solo "set" sea
+// más ancho que cualquier pantalla: así el bucle (-50 %) nunca deja huecos a los lados.
 const half = Math.ceil(clients.length / 2);
-const rows = [clients.slice(0, half), clients.slice(half)];
+const repeat = <T,>(arr: T[], n: number) => Array.from({ length: n }, () => arr).flat();
+const rows = [repeat(clients.slice(0, half), 4), repeat(clients.slice(half), 4)];
 
 export default function Clients() {
   return (

@@ -5,6 +5,7 @@
 export const nav = [
   { name: "Soluciones", link: "#soluciones" },
   { name: "Clientes", link: "#clientes" },
+  { name: "Presencia", link: "#presencia" },
   { name: "Noticias", link: "#noticias" },
   { name: "Conócenos", link: "https://www.iconmm.com/about-us/" },
 ];
@@ -104,6 +105,27 @@ export const icex = {
     { name: "Certificaciones ISO", src: "/images/isos.png", className: "h-12" },
     { name: "Esquema Nacional de Seguridad", src: "/images/ens.png", className: "h-12" },
     { name: "RGPD", src: "/images/gdpr.jpg", className: "h-12" },
+  ],
+};
+
+// Presencia internacional: sedes y rutas hacia ciudades con clientes o eventos de ICON.
+export const presence = {
+  hubs: [
+    { name: "Palencia", region: "EMEA", lat: 42.01, lng: -4.53 },
+    { name: "Ciudad de México", region: "LATAM", lat: 19.36, lng: -99.26 },
+  ],
+  routes: [
+    { from: "Palencia", to: "Madrid", lat: 40.42, lng: -3.7, note: "Metro de Madrid · Adif" },
+    { from: "Palencia", to: "Berlín", lat: 52.52, lng: 13.4, note: "InnoTrans 2026" },
+    { from: "Palencia", to: "Plymouth", lat: 50.37, lng: -4.14, note: "Brittany Ferries" },
+    { from: "Palencia", to: "Ciudad de México", lat: 19.36, lng: -99.26, note: "Sede LATAM" },
+    { from: "Ciudad de México", to: "Santiago de Chile", lat: -33.45, lng: -70.67, note: "Metro de Santiago" },
+    { from: "Ciudad de México", to: "Medellín", lat: 6.24, lng: -75.58, note: "Metro de Medellín" },
+  ],
+  regions: [
+    { name: "Europa", detail: "Sede en Palencia. Adif, Metro de Madrid, Brittany Ferries, BBVA, Repsol." },
+    { name: "Latinoamérica", detail: "Sede en Ciudad de México. Metro de Santiago de Chile y Metro de Medellín." },
+    { name: "Oriente Medio y África", detail: "Cobertura desde la oficina EMEA, con soporte 24/7." },
   ],
 };
 

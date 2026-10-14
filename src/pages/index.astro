@@ -7,8 +7,7 @@ import Solutions from "@/components/Solutions";
 import Clients from "@/components/Clients";
 import News from "@/components/News";
 import Footer from "@/components/Footer.astro";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { icex } from "@/data/site";
+import Presence from "@/components/Presence";
 ---
 
 <Layout>
@@ -52,26 +51,9 @@ import { icex } from "@/data/site";
       <Clients client:visible />
     </section>
 
-    <!-- 4 · ICEX / certificaciones -->
-    <section id="icex" aria-label="Programa ICEX-Next y certificaciones" class="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
-      <div class="relative rounded-[2rem] border border-line bg-white/50 p-2">
-        <GlowingEffect client:visible spread={40} glow={true} disabled={false} proximity={80} inactiveZone={0.01} borderWidth={2} />
-        <div class="relative grid items-center gap-10 rounded-[1.6rem] bg-paper p-8 md:p-12 lg:grid-cols-[1.3fr_1fr]">
-          <div>
-            <p class="eyebrow"><span class="text-signal">[03]</span> Compromiso</p>
-            <p class="mt-5 text-base leading-relaxed text-pretty text-ink/75 md:text-lg">{icex.text}</p>
-          </div>
-          <ul class="flex flex-wrap items-center justify-start gap-x-10 gap-y-6 lg:justify-end" aria-label="Logotipos y certificaciones">
-            {
-              icex.logos.map((logo) => (
-                <li class="rounded-xl bg-white px-4 py-3 shadow-[0_1px_2px_rgba(20,20,24,0.06)] ring-1 ring-line">
-                  <img src={logo.src} alt={logo.name} loading="lazy" class:list={["w-auto", logo.className]} />
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
+    <!-- 4 · PRESENCIA INTERNACIONAL: globo que se convierte en mapa al hacer scroll -->
+    <section id="presencia" aria-label="Presencia internacional" class="border-t border-line" style="min-height: 300vh">
+      <Presence client:only="react" />
     </section>
 
     <!-- 5 · NOTICIAS -->

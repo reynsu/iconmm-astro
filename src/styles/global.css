@@ -27,12 +27,16 @@
   --color-signal: #e8362a;
   --color-signal-deep: #b5231a;
   --color-amber: #f2a93b;
+}
 
-  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+@keyframes scroll {
+  to { transform: translate(calc(-50% - 0.5rem)); }
+}
 
-  @keyframes scroll {
-    to { transform: translate(calc(-50% - 0.5rem)); }
-  }
+/* Carrusel infinito (infinite-moving-cards). Se declara como utilidad, no en @theme, para
+   que --animation-duration y --animation-direction se resuelvan en cada fila y no en :root. */
+@utility animate-scroll {
+  animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 }
 
 @layer base {
