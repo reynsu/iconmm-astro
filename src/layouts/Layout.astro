@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import Scrollbar from "@/components/Scrollbar";
 
 interface Props {
   title?: string;
@@ -28,5 +29,6 @@ const {
   </head>
   <body>
     <slot />
+    <Scrollbar client:load />
   </body>
 </html>

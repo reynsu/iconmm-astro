@@ -97,9 +97,19 @@ export default function Presence() {
   const phase = useRef<"A" | "B">("A");
   const raf = useRef(0);
   const pointer = useRef({ x: 0.5, y: 0.5, px: 0.5, py: 0.5 });
-  const DURATION = 3000; // ms para recorrer toda la coreografía
-  const TRIGGER_ON = 0.22; // progreso de scroll que inicia la transición
-  const TRIGGER_OFF = 0.1; // por debajo, vuelve al globo
+  const DURATION = 2400; // ms para recorrer toda la coreografía
+  const TRIGGER_OFF = 0.85; // vuelve al globo si la sección baja de nuevo por debajo del 85 % de la ventana
+  const SNAP_ZONE = 0.45; // al parar el scroll con el borde superior a menos de esto, la sección se encaja completa
+  const ARMED_PX = 6; // tolerancia para considerar la sección "completamente mostrada"
+  const GESTURE_GAP = 160; // ms sin ruedas para dar un gesto por terminado
+
+  // Secuencia de la sección: 1) se encaja completa, 2) el siguiente gesto de scroll lanza la
+  // transición y retiene la página mientras dura, 3) el siguiente gesto sigue el scroll normal.
+  const locked = useRef(false); // transición en curso: la página no se mueve
+  const settling = useRef(false); // transición terminada: se ignora el resto del gesto que la lanzó
+  const lastWheel = useRef(0);
+  const touchY = useRef(0);
+  const snapTimer = useRef(0);
 
   const apply = (p: number) => {
     const sticky = stickyEl.current, reveal = revealEl.current, ring = ringEl.current;
@@ -168,8 +178,13 @@ export default function Presence() {
       const t = clamp01((performance.now() - tw.start) / tw.dur);
       // avance lineal: cada capa ya lleva su propia curva (smoothstep) dentro de apply()
       current.current = tw.from + (tw.to - tw.from) * t;
-      if (t >= 1) tween.current = null;
-      else animating = true;
+      if (t >= 1) {
+        tween.current = null;
+        if (locked.current) {
+          locked.current = false;
+          settling.current = true;
+        }
+      } else animating = true;
       apply(current.current);
     }
     const pointerMoving = applyPointer();
@@ -191,35 +206,107 @@ export default function Presence() {
     kick();
   };
 
-  // Progreso 0 → 1 mientras la sección está "pegada": no depende del bucle de
-  // animación, así que también funciona con la pestaña en segundo plano.
-  const readProgress = () => {
-    const el = ref.current;
-    if (!el) return 0;
-    const rect = el.getBoundingClientRect();
-    return clamp01(-rect.top / Math.max(1, rect.height - window.innerHeight));
+  // Borde superior de la sección en píxeles respecto a la ventana (0 = encajada arriba).
+  const sectionTop = () => ref.current?.getBoundingClientRect().top ?? Infinity;
+
+  // Lanza la transición reteniendo la página hasta que termina.
+  const launch = () => {
+    phase.current = "B";
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || document.hidden) {
+      tween.current = null;
+      current.current = 1;
+      apply(1);
+      return;
+    }
+    locked.current = true;
+    goTo(1);
   };
+
   useEffect(() => {
+    const vh = () => Math.max(1, window.innerHeight);
+    const armed = () => phase.current === "A" && Math.abs(sectionTop()) <= ARMED_PX;
+
+    // Al parar el scroll cerca del borde, la sección se encaja completa (paso 1).
     const onScroll = () => {
-      const sp = readProgress();
-      if (phase.current === "A" && sp >= TRIGGER_ON) {
-        phase.current = "B";
-        goTo(1);
-      } else if (phase.current === "B" && sp <= TRIGGER_OFF) {
+      const top = sectionTop();
+      if (phase.current === "B" && top >= vh() * TRIGGER_OFF) {
         phase.current = "A";
         goTo(0);
+      } else if (phase.current === "A" && top < -vh() * 0.5) {
+        // se ha pasado de largo sin gesto interceptable (barra de scroll, buscador…)
+        phase.current = "B";
+        goTo(1);
+      }
+      window.clearTimeout(snapTimer.current);
+      if (phase.current !== "A" || locked.current) return;
+      snapTimer.current = window.setTimeout(() => {
+        const t = sectionTop();
+        if (Math.abs(t) > ARMED_PX && t > -vh() * 0.25 && t < vh() * SNAP_ZONE) {
+          window.scrollBy({ top: t, behavior: "smooth" });
+        }
+      }, 140);
+    };
+
+    // Un gesto hacia abajo con la sección encajada lanza la transición (paso 2); mientras
+    // dura, y hasta que ese mismo gesto se agota, la página no se mueve (paso 3).
+    const gesture = (down: boolean, e: Event) => {
+      const now = performance.now();
+      if (locked.current) {
+        e.preventDefault();
+        lastWheel.current = now;
+        return;
+      }
+      if (settling.current) {
+        if (now - lastWheel.current < GESTURE_GAP) {
+          e.preventDefault();
+          lastWheel.current = now;
+          return;
+        }
+        settling.current = false;
+      }
+      if (down && armed()) {
+        e.preventDefault();
+        lastWheel.current = now;
+        launch();
       }
     };
+    const onWheel = (e: WheelEvent) => gesture(e.deltaY > 0, e);
+    const onTouchStart = (e: TouchEvent) => {
+      touchY.current = e.touches[0]?.clientY ?? 0;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const y = e.touches[0]?.clientY ?? 0;
+      const down = y < touchY.current - 2;
+      if (down) touchY.current = y;
+      gesture(down, e);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      const downKeys = ["ArrowDown", "PageDown", " ", "End"];
+      if (locked.current || downKeys.includes(e.key)) gesture(downKeys.includes(e.key), e);
+    };
+
     // estado inicial sin animar (por si se carga la página a mitad de sección)
-    phase.current = readProgress() >= TRIGGER_ON ? "B" : "A";
+    phase.current = sectionTop() < -vh() * 0.5 ? "B" : "A";
     current.current = phase.current === "B" ? 1 : 0;
     apply(current.current);
     applyPointer();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("keydown", onKey);
+      window.clearTimeout(snapTimer.current);
       cancelAnimationFrame(raf.current);
     };
   }, []);
@@ -241,8 +328,8 @@ export default function Presence() {
   };
 
   return (
-    <div ref={ref} className="relative h-[220vh]">
-      <div ref={stickyEl} className="sticky top-0 h-screen overflow-hidden" onPointerMove={onPointerMove}>
+    <div ref={ref} className="relative h-screen">
+      <div ref={stickyEl} className="relative h-screen overflow-hidden" onPointerMove={onPointerMove}>
         {/* Fase B · fondo oscuro con el mapa a pantalla completa, revelado en círculo */}
         <div
           ref={revealEl}

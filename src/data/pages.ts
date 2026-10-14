@@ -4,7 +4,7 @@
 export const partners = {
   eyebrow: "Programa de partners",
   intro:
-    "Se lo ponemos muy fácil a nuestros partners para que obtengan beneficios significativos con nuestras soluciones de cartelería digital, apoyándoles en cada paso con recursos comerciales, técnicos y de marketing dedicados al canal. Trabajaremos conjuntamente para afrontar con éxito proyectos innovadores, integrando soluciones de vanguardia adaptadas a las necesidades de los clientes.",
+    "Recursos comerciales, técnicos y de marketing dedicados al canal para que tus proyectos de cartelería digital salgan adelante. Trabajamos contigo en cada paso.",
   benefits: [
     {
       code: "CERT",

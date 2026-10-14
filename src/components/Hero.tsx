@@ -1,18 +1,23 @@
 import { IconArrowRight } from "@tabler/icons-react";
-import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
-import { FlipWords } from "@/components/ui/flip-words";
+import { Highlight } from "@/components/ui/hero-highlight";
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import PaperDancer from "@/components/PaperDancer";
 
 const words = ["cartelería digital", "información al viajero", "probadores inteligentes", "kioscos de autoservicio"];
 
+// Fondo "amanecer": del papel a un rubor cálido y de vuelta al papel. Sólo un gradiente.
+const DAWN = "linear-gradient(to bottom, #f4f1ea 0%, #f1dcd3 38%, #f7e6d2 52%, #f4f1ea 78%)";
+
 export default function Hero() {
   return (
-    <HeroHighlight
-      containerClassName="h-auto min-h-0 items-stretch justify-start bg-transparent [mask-image:linear-gradient(to_bottom,black_70%,transparent)]"
-      className="w-full"
-    >
-      <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pt-28 pb-10 md:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10 lg:pt-32 lg:pb-16">
+    <div className="relative w-full">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]"
+        style={{ backgroundImage: DAWN }}
+      />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-6 px-4 pt-28 pb-10 md:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10 lg:pt-32 lg:pb-16">
         <div className="relative z-10 order-2 lg:order-1">
           <p className="eyebrow flex items-center gap-3">
             <span className="inline-block size-1.5 rounded-full bg-signal" />
@@ -26,10 +31,7 @@ export default function Hero() {
             </Highlight>
           </h1>
           <div className="mt-8 max-w-xl text-lg leading-relaxed text-pretty text-muted md:text-xl">
-            Software propio para
-            <FlipWords words={words} duration={2600} className="px-1.5 font-serif text-[1.15em] text-ink italic" />
-            <br className="hidden sm:block" />
-            Una plataforma para gestionar una pantalla o miles, desde Palencia y Ciudad de México.
+            <LayoutTextFlip text="Software propio para" words={words} duration={2800} />
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <HoverBorderGradient
@@ -55,6 +57,6 @@ export default function Hero() {
           <p className="eyebrow mt-2 text-center text-[10px] lg:hidden">Toca la bailarina</p>
         </div>
       </div>
-    </HeroHighlight>
+    </div>
   );
 }

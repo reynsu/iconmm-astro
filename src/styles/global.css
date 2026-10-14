@@ -53,6 +53,15 @@
     background: var(--color-signal);
     color: white;
   }
+
+  /* La barra de scroll nativa se oculta: la página dibuja la suya superpuesta al contenido
+     (ver components/Scrollbar.tsx), así el contenido ocupa todo el ancho de la ventana. */
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Etiqueta monoespaciada */
