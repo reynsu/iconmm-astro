@@ -13,7 +13,8 @@ import { clients, event, news, solutions } from "@/data/site";
 import { optimized, optimizedMap } from "@/lib/images";
 
 // Las islas React no pueden usar astro:assets: las variantes se generan aquí y viajan como props.
-const solutionImages = await optimizedMap(solutions.map((s) => s.image), { sizes: "(min-width: 768px) 44vw, 92vw" });
+// Calidad 40: son fotos de ambiente dentro de tarjetas; a ese tamaño no se nota y pesan un 25-35 % menos que a 70.
+const solutionImages = await optimizedMap(solutions.map((s) => s.image), { sizes: "(min-width: 768px) 44vw, 92vw", quality: 40 });
 const eventImage = await optimized(event.image, { sizes: "(min-width: 768px) 40vw, 90vw" });
 const clientLogos = await optimizedMap(clients.map((c) => c.src));
 const newsImages = await optimizedMap(news.map((n) => n.image), { widths: [480, 768], sizes: "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" });
